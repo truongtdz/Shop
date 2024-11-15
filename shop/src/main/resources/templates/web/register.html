@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng Ký - Shop Rau-Quả</title>
+    <link
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+            rel="stylesheet"
+    />
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <style>
+        body {
+          background-color: #e9f8e8;
+          height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .login-container {
+          background: white;
+          padding: 40px;
+          border-radius: 15px;
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+          width: 100%;
+          max-width: 500px;
+        }
+
+        .login-header {
+          text-align: center;
+          margin-bottom: 30px;
+        }
+
+        .login-header img {
+          width: 80px;
+          height: 80px;
+          border-radius: 50%;
+          margin-bottom: 15px;
+          border: 3px solid #4caf50;
+          padding: 3px;
+        }
+
+        .login-header h2 {
+          color: #4caf50;
+          font-size: 24px;
+          font-weight: 600;
+        }
+
+        .form-group {
+          margin-bottom: 25px;
+        }
+
+        .form-group label {
+          color: #666;
+          font-weight: 500;
+          margin-bottom: 8px;
+        }
+
+        .form-control {
+          border-radius: 25px;
+          padding: 12px 20px;
+          border: 2px solid #e0e0e0;
+          transition: all 0.3s;
+        }
+
+        .form-control:focus {
+          border-color: #4caf50;
+          box-shadow: none;
+        }
+
+        .input-group-text {
+          border-radius: 25px;
+          background: transparent;
+          border: 2px solid #e0e0e0;
+          color: #666;
+        }
+
+        .btn-login {
+          background: linear-gradient(135deg, #4caf50, #45a049);
+          border: none;
+          border-radius: 25px;
+          color: white;
+          padding: 12px;
+          font-weight: 600;
+          width: 100%;
+          margin-top: 20px;
+          transition: all 0.3s;
+        }
+
+        .btn-login:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .forgot-password {
+          text-align: right;
+          margin-top: 10px;
+        }
+
+        .forgot-password a {
+          color: #4caf50;
+          text-decoration: none;
+          font-size: 14px;
+        }
+
+        .register-link {
+          text-align: center;
+          margin-top: 20px;
+          color: #666;
+        }
+
+        .register-link a {
+          color: #4caf50;
+          text-decoration: none;
+          font-weight: 600;
+        }
+
+        .back-home {
+          position: absolute;
+          top: 20px;
+          left: 20px;
+          color: #4caf50;
+          text-decoration: none;
+          font-weight: 600;
+          transition: all 0.3s;
+        }
+
+        .back-home:hover {
+          color: #45a049;
+          text-decoration: none;
+        }
+
+        .password-strength {
+          font-size: 12px;
+          margin-top: 5px;
+        }
+
+        .password-strength.weak {
+          color: #dc3545;
+        }
+
+        .password-strength.medium {
+          color: #ffc107;
+        }
+
+        .password-strength.strong {
+          color: #28a745;
+        }
+
+        .alert {
+          margin-bottom: 20px;
+          border-radius: 10px;
+          font-size: 14px;
+        }
+
+        .alert-danger {
+          background-color: #ffe6e6;
+          border-color: #ffcccc;
+          color: #dc3545;
+        }
+
+        .alert i {
+          margin-right: 8px;
+        }
+
+        .alert .close {
+          padding: 0.5rem 1.25rem;
+        }
+
+        .alert .close:hover {
+          color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+<a href="./home" class="back-home">
+    <i class="fas fa-arrow-left"></i> Quay về trang chủ
+</a>
+
+<div class="login-container">
+    <div class="login-header">
+        <img th:src="@{/img/logo.jpg}" alt="Logo" />
+        <h2>Đăng Ký Tài Khoản</h2>
+    </div>
+
+    <div
+            th:if="${message}"
+            class="alert alert-danger alert-dismissible fade show"
+            role="alert"
+    >
+        <i class="fas fa-exclamation-circle"></i>
+        <span th:text="${message}"></span>
+        <button
+                type="button"
+                class="close"
+                data-dismiss="alert"
+                aria-label="Close"
+        >
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <form
+            th:action="@{/register}"
+            th:object="${userRegister}"
+            method="post"
+            id="registerForm"
+    >
+        <div class="form-group">
+            <label for="username">Tài Khoản Đăng Nhập</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fas fa-user"></i>
+              </span>
+                </div>
+                <input
+                        type="text"
+                        class="form-control"
+                        id="username"
+                        th:field="*{username}"
+                        placeholder="Nhập tài khoản đăng nhập"
+                        required
+                        oninvalid="this.setCustomValidity('Vui lòng nhập tài khoản đăng nhập')"
+                        oninput="this.setCustomValidity('')"
+                />
+            </div>
+            <small
+                    class="text-danger"
+                    th:if="${#fields.hasErrors('username')}"
+                    th:errors="*{username}"
+            ></small>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fas fa-envelope"></i>
+              </span>
+                </div>
+                <input
+                        type="email"
+                        class="form-control"
+                        id="email"
+                        th:field="*{email}"
+                        placeholder="Nhập địa chỉ email"
+                        required
+                        oninvalid="this.setCustomValidity('Vui lòng nhập địa chỉ email hợp lệ')"
+                        oninput="this.setCustomValidity('')"
+                />
+            </div>
+            <small
+                    class="text-danger"
+                    th:if="${#fields.hasErrors('email')}"
+                    th:errors="*{email}"
+            ></small>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Mật khẩu</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fas fa-lock"></i>
+              </span>
+                </div>
+                <input
+                        type="password"
+                        class="form-control"
+                        id="password"
+                        th:field="*{password}"
+                        placeholder="Nhập mật khẩu"
+                        required
+                        oninput="this.setCustomValidity('')"
+                />
+            </div>
+            <div class="password-strength" id="passwordStrength"></div>
+            <small
+                    class="text-danger"
+                    th:if="${#fields.hasErrors('password')}"
+                    th:errors="*{password}"
+            ></small>
+        </div>
+
+        <div class="form-group">
+            <label for="confirmPassword">Xác nhận mật khẩu</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+              <span class="input-group-text">
+                <i class="fas fa-lock"></i>
+              </span>
+                </div>
+                <input
+                        type="password"
+                        class="form-control"
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        placeholder="Nhập lại mật khẩu"
+                        required
+                        oninvalid="this.setCustomValidity('Vui lòng xác nhận lại mật khẩu')"
+                        oninput="this.setCustomValidity('')"
+                />
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-login">
+            <i class="fas fa-user-plus mr-2"></i> Đăng Ký
+        </button>
+
+        <div class="register-link">
+            Đã có tài khoản? <a th:href="@{/login}">Đăng nhập ngay</a>
+        </div>
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    document
+      .getElementById("registerForm")
+      .addEventListener("submit", function (e) {
+        const password = document.getElementById("password").value;
+        const confirmPassword =
+          document.getElementById("confirmPassword").value;
+
+        if (password !== confirmPassword) {
+          e.preventDefault();
+          alert("Mật khẩu xác nhận không khớp với mật khẩu đã nhập!");
+        }
+      });
+</script>
+</body>
+</html>

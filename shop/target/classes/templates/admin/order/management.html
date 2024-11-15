@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quản Lý Đơn Hàng</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+    <style>
+        :root {
+            --sidebar-width: 250px;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .sidebar {
+            width: var(--sidebar-width);
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            background: linear-gradient(180deg, #2c3e50 0%, #3498db 100%);
+            padding-top: 20px;
+            transition: all 0.3s;
+        }
+
+        .sidebar-brand {
+            padding: 15px 25px;
+            margin-bottom: 20px;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+        }
+
+        .nav-link {
+            color: rgba(255,255,255,0.8) !important;
+            padding: 12px 25px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-link:hover {
+            background: rgba(255,255,255,0.1);
+            color: white !important;
+            transform: translateX(5px);
+        }
+
+        .main-content {
+            margin-left: var(--sidebar-width);
+            padding: 30px;
+        }
+
+        .page-header {
+            background: linear-gradient(90deg, #839eb0, #3f566d );
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .table-container {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .table {
+            margin-bottom: 0;
+        }
+
+        .table thead th {
+            background-color: #f8f9fa;
+            border-bottom: 2px solid #dee2e6;
+            color: #495057;
+            font-weight: 600;
+        }
+
+        .table tbody tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .btn-view {
+            padding: 6px 15px;
+            border-radius: 6px;
+            transition: all 0.3s;
+        }
+
+        .btn-view:hover {
+            transform: translateY(-2px);
+        }
+
+        .order{
+            font-weight: 600;
+            color: #3498db;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <a href="/admin" class="sidebar-brand">
+            <i class="fas fa-shield-alt"></i> ADMIN
+        </a>
+        <div class="nav flex-column">
+            <a class="nav-link" href="/admin">
+                <i class="fas fa-home"></i> Trang Chủ
+            </a>
+            <a class="nav-link" href="/admin/user">
+                <i class="fas fa-users"></i> Quản Lý Người Dùng
+            </a>
+            <a class="nav-link" href="/admin/product">
+                <i class="fas fa-box"></i> Quản Lý Sản Phẩm
+            </a>
+            <a class="nav-link" href="/admin/order">
+                <i class="fas fa-shopping-cart"></i> Quản Lý Đơn Hàng
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-header">
+            <h1 class="h3 mb-0">
+                <i class="fas fa-shopping-cart me-2"></i>
+                Quản Lý Đơn Hàng
+            </h1>
+        </div>
+
+        <div class="table-container">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Mã Đơn Hàng</th>
+                            <th>Ngày Đặt</th>
+                            <th>Tông Tiền</th>
+                            <th>Số Lương Sản Phẩm</th>
+                            <th>Hành Động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="order : ${orders}">
+                            <td class="order">
+                                <i class="fas fa-hashtag me-2"></i>
+                                <span th:text="${order.id}"></span>
+                            </td>
+                            <td class="order">
+                                <i class="fas fa-calendar-alt me-2"></i>
+                                <span th:text="${order.date}"></span>
+                            </td>
+                            <td class="order">
+                                <i class="fa-solid fa-money-bill"></i>
+                                <span th:text="${order.total}"></span>
+                            </td>
+                            <td class="order">
+                                <i class="fa-brands fa-codepen"></i>
+                                <span th:text="${order.quantity}"></span>
+                            </td>
+                            <td>
+                                <a th:href="@{/admin/order/{id}(id=${order.id})}" 
+                                   class="btn btn-primary btn-view">
+                                    <i class="fas fa-eye me-2"></i>Xem Chi Tiết
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+
+</html>

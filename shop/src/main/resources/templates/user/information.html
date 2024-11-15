@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thông Tin Tài Khoản - Shop Rau-Quả</title>
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <style>
+      body {
+        background-color: #e9f8e8;
+        padding-top: 20px;
+        padding-bottom: 20px;
+      }
+
+      .user-container {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        margin: 20px auto;
+        max-width: 800px;
+      }
+
+      .profile-header {
+        text-align: center;
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 2px solid #e9f8e8;
+      }
+
+      .profile-avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        border: 3px solid #4caf50;
+        padding: 3px;
+        margin-bottom: 15px;
+      }
+
+      .profile-title {
+        color: #4caf50;
+        font-size: 24px;
+        font-weight: 600;
+      }
+
+      .info-group {
+        margin-bottom: 20px;
+        padding: 15px;
+        border-radius: 10px;
+        background-color: #f8f9fa;
+      }
+
+      .info-label {
+        color: #666;
+        font-weight: 500;
+        margin-bottom: 5px;
+      }
+
+      .info-value {
+        color: #333;
+        font-size: 16px;
+        padding: 8px 15px;
+        background: white;
+        border-radius: 5px;
+        border: 1px solid #dee2e6;
+      }
+
+      .btn-edit {
+        background: linear-gradient(135deg, #4caf50, #45a049);
+        border: none;
+        border-radius: 25px;
+        color: white;
+        padding: 10px 30px;
+        font-weight: 600;
+        transition: all 0.3s;
+      }
+
+      .btn-edit:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+        color: white;
+      }
+
+      .back-home {
+        color: #4caf50;
+        text-decoration: none;
+        font-weight: 600;
+        display: inline-block;
+        margin-bottom: 20px;
+        transition: all 0.3s;
+      }
+
+      .back-home:hover {
+        color: #45a049;
+        text-decoration: none;
+        transform: translateX(-5px);
+      }
+
+      .section-title {
+        color: #4caf50;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #e9f8e8;
+      }
+
+      .address-info {
+        background-color: #fff;
+        padding: 15px;
+        border-radius: 10px;
+        margin-top: 20px;
+      }
+
+      .form-control[readonly] {
+        background-color: #fff;
+        cursor: default;
+      }
+
+      .form-control:not([readonly]) {
+        background-color: #fff;
+        border-color: #4caf50;
+      }
+
+      .edit-mode .form-control {
+        background-color: #ffffff;
+        cursor: text;
+      }
+
+      .btn-save {
+        display: none;
+        background: linear-gradient(135deg, #4caf50, #45a049);
+        border: none;
+        border-radius: 25px;
+        color: white;
+        padding: 10px 30px;
+        font-weight: 600;
+        transition: all 0.3s;
+        margin-right: 10px;
+      }
+
+      .btn-save:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+        color: white;
+      }
+
+      .btn-cancel {
+        display: none;
+        background: #dc3545;
+        border: none;
+        border-radius: 25px;
+        color: white;
+        padding: 10px 30px;
+        font-weight: 600;
+        transition: all 0.3s;
+      }
+
+      .btn-cancel:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+        color: white;
+      }
+
+      .edit-mode .btn-save,
+      .edit-mode .btn-cancel {
+        display: inline-block;
+      }
+
+      .edit-mode .btn-edit {
+        display: none;
+      }
+
+      .profile-image-container {
+        position: relative;
+        margin: 20px auto;
+        text-align: center;
+      }
+
+      .profile-avatar {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 3px solid #4caf50;
+        padding: 3px;
+        background-color: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .image-upload-section {
+        margin-top: 10px;
+        text-align: center;
+        display: none;
+      }
+
+      .edit-mode .image-upload-section {
+        display: block;
+      }
+
+      .form-control-file {
+        max-width: 200px;
+        margin: 0 auto;
+      }
+
+      .edit-mode .image-upload-section {
+        display: block !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <a href="/home" class="back-home">
+        <i class="fas fa-arrow-left"></i> Quay về trang chủ
+      </a>
+
+      <div class="user-container">
+        <div class="profile-header">
+          <h2 class="profile-title">Thông Tin Tài Khoản</h2>
+          <div class="info-group" th:text="${user.username}"></div>
+        </div>
+
+        <form
+          th:action="@{/user/update}"
+          th:object="${updateUser}"
+          method="POST"
+          id="userForm"
+          enctype="multipart/form-data"
+        >
+          <div class="row">
+            <div class="col-md-6">
+              <h4 class="section-title">Thông tin cá nhân</h4>
+
+              <div class="info-group">
+                <label class="info-label">Ảnh đại diện</label>
+                <div class="profile-image-container">
+                  <img
+                    th:src="@{${user.image}}"
+                    class="profile-avatar"
+                    id="avatarPreview"
+                    alt="User Avatar"
+                  />
+                  <div class="image-upload-section" style="display: none">
+                    <input
+                      type="file"
+                      class="form-control-file"
+                      id="file"
+                      name="file"
+                      onchange="previewImage(this)"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="info-group">
+                <label for="fullName">Họ và tên</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="fullName"
+                  th:field="*{fullName}"
+                  th:placeholder="${user.fullName}"
+                  readonly
+                  required
+                />
+              </div>
+
+              <div class="info-group">
+                <label for="gender">Giới tính</label>
+                <select
+                  class="form-control"
+                  id="gender"
+                  th:field="*{gender}"
+                  disabled
+                  required
+                >
+                  <option
+                    th:each="gender : ${genders}"
+                    th:value="${gender}"
+                    th:text="${gender}"
+                  ></option>
+                </select>
+              </div>
+
+              <div class="info-group">
+                <label for="password">Mật khẩu</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="password"
+                  th:field="*{password}"
+                  th:placeholder="${user.password}"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <h4 class="section-title">Thông tin liên hệ</h4>
+
+              <div class="info-group">
+                <label for="email">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  th:field="*{email}"
+                  th:placeholder="${user.email}"
+                  readonly
+                  required
+                />
+              </div>
+
+              <div class="info-group">
+                <label for="phone">Số điện thoại</label>
+                <input
+                  type="tel"
+                  class="form-control"
+                  id="phone"
+                  th:field="*{phone}"
+                  th:placeholder="${user.phone}"
+                  readonly
+                  required
+                />
+              </div>
+
+              <div class="info-group">
+                <label for="city">Thành phố</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="city"
+                  th:field="*{city}"
+                  th:placeholder="${user.city}"
+                  readonly
+                  required
+                />
+              </div>
+
+              <div class="info-group">
+                <label for="district">Quận/Huyện</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="district"
+                  th:field="*{district}"
+                  th:placeholder="${user.district}"
+                  readonly
+                  required
+                />
+              </div>
+
+              <div class="info-group">
+                <label for="address">Địa chỉ chi tiết</label>
+                <textarea
+                  class="form-control"
+                  id="address"
+                  rows="2"
+                  th:field="*{address}"
+                  th:placeholder="${user.address}"
+                  readonly
+                  required
+                ></textarea>
+              </div>
+            </div>
+          </div>
+
+          <input
+            type="hidden"
+            th:field="*{username}"
+            th:value="${user.username}"
+          />
+
+          <div class="text-center mt-4">
+            <button type="button" class="btn btn-edit" onclick="enableEdit()">
+              <i class="fas fa-edit"></i> Chỉnh sửa thông tin
+            </button>
+            <button type="submit" class="btn btn-save">
+              <i class="fas fa-save"></i> Lưu thay đổi
+            </button>
+            <button type="button" class="btn btn-cancel" onclick="cancelEdit()">
+              <i class="fas fa-times"></i> Hủy
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      function enableEdit() {
+        document.querySelectorAll(".form-control").forEach((input) => {
+          if (input.type !== "hidden") {
+            input.readOnly = false;
+            if (input.tagName === "SELECT") {
+              input.disabled = false;
+            }
+            input.value = input.placeholder || input.value;
+          }
+        });
+        document.getElementById("userForm").classList.add("edit-mode");
+        document.querySelector(".image-upload-section").style.display = "block";
+      }
+
+      function cancelEdit() {
+        document.querySelectorAll(".form-control").forEach((input) => {
+          if (input.type !== "hidden") {
+            input.readOnly = true;
+            if (input.tagName === "SELECT") {
+              input.disabled = true;
+            }
+            input.value = "";
+          }
+        });
+        document.getElementById("userForm").classList.remove("edit-mode");
+        document.querySelector(".image-upload-section").style.display = "none";
+        document.getElementById("avatarPreview").src = "[[${user.image}]]";
+      }
+
+      function previewImage(input) {
+        if (input.files && input.files[0]) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            document.getElementById("avatarPreview").src = e.target.result;
+          };
+          reader.readAsDataURL(input.files[0]);
+        }
+      }
+
+      document
+        .getElementById("userForm")
+        .addEventListener("submit", function (e) {
+          const phone = document.getElementById("phone").value;
+          const email = document.getElementById("email").value;
+
+          if (!/^[0-9]{10}$/.test(phone)) {
+            e.preventDefault();
+            alert("Số điện thoại không hợp lệ. Vui lòng nhập 10 chữ số!");
+            return;
+          }
+
+          if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            e.preventDefault();
+            alert("Email không hợp lệ!");
+            return;
+          }
+        });
+    </script>
+  </body>
+</html>

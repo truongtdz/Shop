@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trang Home - Shop Rau-Quả</title>
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <style>
+      body {
+        background-color: #e9f8e8; /* Màu nền nhẹ nhàng, phù hợp với rau củ */
+      }
+      /* Navbar */
+      .navbar {
+        background-color: #4caf50; /* Màu xanh lá cây đậm */
+      }
+      .navbar-brand,
+      .nav-link,
+      .navbar-text {
+        color: black !important; /* Chữ đen trên nền xanh */
+      }
+      .nav-item {
+        margin: 0 15px; /* Thêm khoảng cách giữa các mục nav */
+      }
+      .nav-item a {
+        padding: 10px 15px; /* Padding cho các thẻ nav */
+        border: 1px solid #4caf50; /* Border cho các thẻ nav */
+        border-radius: 5px; /* Bo tròn các góc */
+        background-color: #a5d6a7; /* Màu nền tương tự như header */
+        transition: background-color 0.3s; /* Hiệu ứng chuyển đổi */
+      }
+      .nav-item a:hover {
+        background-color: #88b04b; /* Màu nền khi hover */
+        color: #fff; /* Chữ trắng khi hover */
+      }
+      .banner img {
+        width: 100%;
+        height: 500px;
+      }
+      /* Product Section */
+      .product-card {
+        border: 1px solid #ddd;
+        padding: 15px;
+        border-radius: 8px;
+        background-color: #fff;
+        text-align: center;
+      }
+      .product-card img {
+        width: 100%;
+        height: auto;
+        max-height: 200px;
+        margin-bottom: 10px;
+      }
+      .product-card h5 {
+        font-size: 1.1rem;
+        color: #333;
+      }
+      .product-price {
+        color: #e67e22; /* Màu cam cho giá */
+        font-size: 1.2rem;
+        font-weight: bold;
+      }
+      /* Footer */
+      .footer {
+        background-color: #333;
+        color: #fff;
+        padding: 20px 0;
+      }
+      .footer a {
+        color: #4caf50; /* Màu xanh lá cây cho liên kết trong footer */
+        text-decoration: none;
+      }
+      .footer a:hover {
+        text-decoration: underline;
+      }
+      .header {
+        background: linear-gradient(135deg, #4caf50, #45a049);
+        padding: 15px 0;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      .header .logo {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        border: 3px solid #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+      }
+      .header .logo:hover {
+        transform: scale(1.05);
+      }
+      .header .header-title {
+        font-size: 32px;
+        font-weight: 700;
+        color: #fff;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        margin-left: 15px;
+      }
+      .header .form-control {
+        border-radius: 20px;
+        border: none;
+        padding: 8px 20px;
+      }
+      .btn-custom {
+        border-radius: 20px;
+        padding: 8px 20px;
+        background-color: #fff;
+        color: #4caf50;
+        border: 2px solid #4caf50;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+      .btn-custom:hover {
+        background-color: #4caf50;
+        color: #fff;
+        transform: translateY(-2px);
+      }
+      /* Navigation styles */
+      .nav-container {
+        background: #fff;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        padding: 10px 0;
+      }
+      .nav-pills {
+        background: #fff;
+        padding: 0 20px;
+      }
+      .nav-pills .nav-link {
+        color: #333;
+        font-weight: 600;
+        border-radius: 25px;
+        padding: 10px 25px;
+        margin: 0 5px;
+        transition: all 0.3s ease;
+      }
+      .nav-pills .nav-link:hover {
+        background-color: #4caf50;
+        color: #fff;
+        transform: translateY(-2px);
+      }
+      /* Styles cho carousel */
+      .carousel-control-prev,
+      .carousel-control-next {
+        width: 40px;
+        height: 40px;
+        background-color: #4caf50;
+        border-radius: 50%;
+        top: 50%;
+        transform: translateY(-50%);
+        opacity: 0.8;
+      }
+
+      .carousel-control-prev {
+        left: -50px;
+      }
+
+      .carousel-control-next {
+        right: -50px;
+      }
+
+      .carousel-control-prev:hover,
+      .carousel-control-next:hover {
+        opacity: 1;
+        background-color: #45a049;
+      }
+
+      .carousel-control-prev-icon,
+      .carousel-control-next-icon {
+        width: 20px;
+        height: 20px;
+      }
+
+      #productCarousel {
+        padding: 0 50px;
+      }
+
+      .carousel-inner {
+        padding: 1rem 0;
+      }
+      .notification {
+        margin-bottom: 30px;
+      }
+      .nav-pills .nav-link.active {
+        background-color: #4caf50;
+        color: white !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+      }
+
+      /* Thêm padding-top cho các section để scroll không bị che bởi navigation */
+      #newest-products,
+      #sale-products {
+        padding-top: 80px;
+        margin-top: -60px;
+      }
+
+      /* Làm cho navigation sticky */
+      .nav-container {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: white;
+      }
+
+      /* Style cho dropdown */
+      .dropdown-menu {
+        position: absolute !important;
+        z-index: 9999 !important; /* Z-index cao hơn nav */
+        border: none;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        margin-top: 5px;
+        min-width: 200px;
+      }
+
+      .dropdown-item {
+        padding: 10px 20px;
+        transition: all 0.3s ease;
+      }
+
+      .dropdown-item:hover {
+        background-color: #f8f9fa;
+        color: #4caf50;
+        transform: translateX(5px);
+      }
+
+      .dropdown-item i {
+        margin-right: 10px;
+        color: #4caf50;
+      }
+
+      .dropdown-divider {
+        margin: 5px 0;
+        border-color: #eee;
+      }
+
+      /* Đảm bảo dropdown hiển thị trên nav */
+      .dropdown {
+        position: relative;
+        z-index: 10000 !important;
+      }
+
+      /* Chỉnh lại z-index cho nav */
+      .nav-container {
+        z-index: 999 !important;
+      }
+
+      .banner-slider {
+        width: 100%;
+        margin: 0 auto;
+        position: relative;
+        height: 500px;
+        overflow: hidden;
+      }
+
+      .banner-slider .carousel-inner {
+        height: 100%;
+      }
+
+      .banner-slider .carousel-item {
+        height: 100%;
+      }
+
+      .banner-slider img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      /* Style cho nút điều hướng */
+      .carousel-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 45px;
+        height: 45px;
+        background: rgba(0, 0, 0, 0.5);
+        border: none;
+        border-radius: 50%;
+        color: white;
+        font-size: 18px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+      }
+
+      .carousel-nav:hover {
+        background: rgba(0, 0, 0, 0.8);
+      }
+
+      .carousel-nav.prev {
+        left: 20px;
+      }
+
+      .carousel-nav.next {
+        right: 20px;
+      }
+
+      /* Ẩn nút mặc định của Bootstrap */
+      .carousel-control-prev,
+      .carousel-control-next {
+        display: none;
+      }
+
+      /* Chỉnh sửa style cho product card */
+      .product-card {
+        border: 1px solid #ddd;
+        padding: 15px;
+        border-radius: 8px;
+        background-color: #fff;
+        text-align: center;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .product-card .product-image {
+        width: 100%;
+        height: 200px; /* Chiều cao cố định cho ảnh */
+        margin-bottom: 10px;
+        overflow: hidden;
+      }
+
+      .product-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Đảm bảo ảnh không bị méo */
+      }
+
+      .product-card h4 {
+        font-size: 1.1rem;
+        margin: 10px 0;
+        flex-grow: 1;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .banner-slider {
+          height: 300px;
+        }
+
+        .slider-btn {
+          width: 40px;
+          height: 40px;
+          font-size: 16px;
+        }
+      }
+
+      .section-title {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #333;
+        font-size: 24px;
+        position: relative;
+      }
+
+      .news-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        padding: 0 15px;
+      }
+
+      .news-item {
+        position: relative;
+        height: 200px;
+        overflow: hidden;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+      }
+
+      .news-item:hover {
+        transform: translateY(-5px);
+      }
+
+      .news-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+      }
+
+      .news-item:hover img {
+        transform: scale(1.1);
+      }
+
+      /* Responsive */
+      @media (max-width: 992px) {
+        .news-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 576px) {
+        .news-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .news-item {
+          height: 180px;
+        }
+      }
+
+      /* Thêm/cập nhật CSS cho phần sản phẩm */
+      #newest-products,
+      #sale-products {
+        width: 90%;
+        margin: 0 auto;
+        padding: 20px 0;
+      }
+
+      /* Style cho tiêu đề section */
+      .section-title {
+        font-size: 28px;
+        padding: 12px 35px;
+        margin-bottom: 30px;
+        display: inline-block;
+      }
+
+      /* Style cho product card */
+      .product-card {
+        border: 1px solid #eee;
+        padding: 15px;
+        border-radius: 10px;
+        background-color: #fff;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        height: 400px; /* Cố định chiều cao cho card */
+        display: flex;
+        flex-direction: column;
+        margin: 10px 0;
+        transition: transform 0.3s ease;
+      }
+
+      .product-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .product-image {
+        width: 100%;
+        height: 200px; /* Cố định chiều cao cho ảnh */
+        margin-bottom: 15px;
+        overflow: hidden;
+        border-radius: 8px;
+      }
+
+      .product-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+      }
+
+      .product-card:hover .product-image img {
+        transform: scale(1.05);
+      }
+
+      .product-card h4 {
+        font-size: 20px;
+        margin: 10px 0;
+        height: 40px; /* Cố định chiều cao cho tiêu đề */
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+      }
+
+      .product-price {
+        font-size: 18px;
+        font-weight: bold;
+        color: #e74c3c;
+        margin-bottom: 10px;
+      }
+
+      .badge-danger {
+        padding: 5px 10px;
+        font-size: 14px;
+      }
+
+      /* Style cho nút trong card */
+      .product-card .btn {
+        padding: 8px 15px;
+        font-size: 14px;
+      }
+
+      .product-card .btn-success {
+        background-color: #4caf50;
+        border-color: #4caf50;
+      }
+
+      .product-card .btn-warning {
+        background-color: #ff9800;
+        border-color: #ff9800;
+        color: white;
+      }
+
+      /* Căn chỉnh layout bên trong card */
+      .product-card > * {
+        margin-bottom: 10px;
+      }
+
+      .product-card .d-flex {
+        margin-top: auto; /* Đẩy các nút xuống dưới cùng */
+      }
+
+      /* Style cho carousel */
+      #productCarousel,
+      #productSaleCarousel {
+        padding: 0 50px;
+      }
+
+      .carousel-inner {
+        padding: 1rem 0;
+      }
+
+      .carousel-control-prev,
+      .carousel-control-next {
+        width: 40px;
+        height: 40px;
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 50%;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      .carousel-control-prev {
+        left: -20px;
+      }
+
+      .carousel-control-next {
+        right: -20px;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="d-flex align-items-center justify-content-between">
+          <a
+            href="./home"
+            class="d-flex align-items-center text-decoration-none"
+          >
+            <img class="logo" th:src="@{/img/logo.jpg}" alt="Logo" />
+            <h1 class="header-title">Shop Rau-Quả</h1>
+          </a>
+
+          <div class="d-flex align-items-center">
+            <form
+              class="form-inline mr-3"
+              th:action="@{/home/search-name}"
+              method="get"
+            >
+              <div class="input-group">
+                <input
+                  class="form-control"
+                  type="search"
+                  placeholder="Tìm kiếm sản phẩm..."
+                  aria-label="Search"
+                  name="name"
+                  th:value="${name}"
+                />
+                <div class="input-group-append">
+                  <button class="btn btn-custom" type="submit">
+                    <i class="fas fa-search"></i> Tìm
+                  </button>
+                </div>
+              </div>
+            </form>
+            <!-- Hiển thị nút đăng nhập/đăng ký khi chưa đăng nhập -->
+            <th:block th:if="${user == null}">
+              <a th:href="@{/login}" class="btn btn-custom mr-2">
+                <i class="fas fa-sign-in-alt"></i> Đăng nhập
+              </a>
+              <a th:href="@{/register}" class="btn btn-custom">
+                <i class="fas fa-user-plus"></i> Đăng ký
+              </a>
+            </th:block>
+
+            <!-- Hiển thị các nút khác khi đã đăng nhập -->
+            <th:block th:if="${user != null}">
+              <div class="dropdown mr-2">
+                <button
+                  class="btn btn-custom dropdown-toggle"
+                  type="button"
+                  id="userDropdown"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  <i class="fas fa-user"></i>
+                  <span th:text="${user.username}">Tài khoản</span>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="userDropdown">
+                  <a class="dropdown-item" th:href="@{/user/info}">
+                    <i class="fas fa-user-circle"></i> Thông tin tài khoản
+                  </a>
+                  <a class="dropdown-item" th:href="@{/user/history}">
+                    <i class="fas fa-history"></i> Lịch sử đơn hàng
+                  </a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" th:href="@{/logout}">
+                    <i class="fas fa-sign-out-alt"></i> Đăng xuất
+                  </a>
+                </div>
+              </div>
+
+              <a
+                th:href="@{/user/cart}"
+                class="btn btn-custom position-relative mr-2"
+              >
+                <i class="fas fa-shopping-cart"></i> Giỏ hàng
+                <span
+                  th:text="${count}"
+                  class="badge badge-danger position-absolute"
+                  style="top: -5px; right: -5px"
+                  >0</span
+                >
+              </a>
+            </th:block>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="nav-container">
+      <div class="container">
+        <nav class="nav nav-pills nav-justified" style="font-size: 0.9rem">
+          <a class="nav-link" th:href="@{./home}">
+            <i class="fas fa-home"></i> Trang Chủ
+          </a>
+          <a class="nav-link" th:href="@{./introduce}">
+            <i class="fas fa-info-circle"></i> Giới Thiệu
+          </a>
+          <a class="nav-link" th:href="@{./home/search}">
+            <i class="fas fa-search"></i> Tìm Kiếm
+          </a>
+          <a class="nav-link" href="#newest-products">
+            <i class="fas fa-star"></i> Mới Nhất
+          </a>
+          <a class="nav-link" href="#sale-products">
+            <i class="fas fa-percentage"></i> Giảm Giá
+          </a>
+          <a class="nav-link" th:href="@{./contact}">
+            <i class="fas fa-phone"></i> Liên Hệ
+          </a>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" th:if="${notification}">
+      <div
+        role="alert"
+        class="alert"
+        th:classappend="${notification.equals('Fail')} ? 'alert-danger' : 'alert-success'"
+      >
+        <span th:text="${message}"></span>
+      </div>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="container-fluid">
+      <div
+        id="bannerCarousel"
+        class="carousel slide banner-slider"
+        data-ride="carousel"
+      >
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img th:src="@{img/banner1.jpg}" alt="Banner 1" />
+          </div>
+          <div class="carousel-item">
+            <img th:src="@{img/banner2.jpg}" alt="Banner 2" />
+          </div>
+          <div class="carousel-item">
+            <img th:src="@{img/banner3.jpg}" alt="Banner 3" />
+          </div>
+        </div>
+        <!-- Nút điều hướng mới -->
+        <button
+          class="carousel-nav prev"
+          onclick="$('#bannerCarousel').carousel('prev')"
+        >
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <button
+          class="carousel-nav next"
+          onclick="$('#bannerCarousel').carousel('next')"
+        >
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- News Section -->
+    <div class="container-fluid" id="news">
+      <div class="news-grid">
+        <div class="news-item">
+          <img th:src="@{/img/test1.jpg}" alt="News 1" />
+        </div>
+        <div class="news-item">
+          <img th:src="@{/img/test2.jpg}" alt="News 2" />
+        </div>
+        <div class="news-item">
+          <img th:src="@{/img/test3.jpg}" alt="News 3" />
+        </div>
+        <div class="news-item">
+          <img th:src="@{/img/test4.jpg}" alt="News 4" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Products Section -->
+    <div class="container mt-5" id="newest-products">
+      <h2 class="btn btn-info" style="border-radius: 40px; font-size: 20px;">
+        Sản phẩm mới nhất
+      </h2>
+      <div id="productCarousel" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          <!-- Slide đầu tiên (active) -->
+          <div class="carousel-item active">
+            <div class="row">
+              <div
+                class="col-md-3"
+                th:each="product, stat : ${productNewest}"
+                th:if="${stat.index < 4}"
+              >
+                <div class="product-card">
+                  <div class="product-image">
+                    <img
+                      th:src="${product.image}"
+                      alt="Product Image"
+                      onerror="this.src='https://via.placeholder.com/200x200'"
+                    />
+                  </div>
+                  <h4 th:text="${product.name}">Product Name</h4>
+                  <p>
+                    <span
+                      class="product-price"
+                      th:text="${product.price} + ' $'"
+                      >Product Price</span
+                    >
+                    <span
+                      class="badge badge-danger"
+                      th:text="'Giảm ' + ${product.discount} + '%'"
+                      >Discount</span
+                    >
+                  </p>
+                  <div class="d-flex justify-content-between">
+                    <!-- Nút Xem Chi Tiết -->
+                    <a
+                      th:href="@{/home/product/{id}(id=${product.id})}"
+                      class="btn btn-success"
+                    >
+                      Chi tiết
+                    </a>
+
+                    <!-- Nút Giỏ Hàng -->
+                    <a
+                      th:href="@{/user/cart/{id}(id=${product.id})}"
+                      class="btn btn-warning"
+                    >
+                      <i class="fas fa-shopping-cart"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide thứ hai (nếu có) -->
+          <div class="carousel-item" th:if="${quantityProductNewest > 4}">
+            <div class="row">
+              <div
+                class="col-md-3"
+                th:each="product, stat : ${productNewest}"
+                th:if="${stat.index >= 4 && stat.index < 8}"
+              >
+                <div class="product-card">
+                  <div class="product-image">
+                    <img
+                      th:src="${product.image}"
+                      alt="Product Image"
+                      onerror="this.src='https://via.placeholder.com/200x200'"
+                    />
+                  </div>
+                  <h4 th:text="${product.name}">Product Name</h4>
+                  <p>
+                    <span
+                      class="product-price"
+                      th:text="${product.price} + ' $'"
+                      >Product Price</span
+                    >
+                    <span
+                      class="badge badge-danger"
+                      th:text="'Giảm ' + ${product.discount} + '%'"
+                      >Discount</span
+                    >
+                  </p>
+                  <div class="d-flex justify-content-between">
+                    <!-- Nút Xem Chi Tiết -->
+                    <a
+                      th:href="@{/home/product/{id}(id=${product.id})}"
+                      class="btn btn-success"
+                    >
+                      Chi tiết
+                    </a>
+
+                    <!-- Nút Giỏ Hàng -->
+                    <a
+                      th:href="@{/user/cart/{id}(id=${product.id})}"
+                      class="btn btn-warning"
+                    >
+                      <i class="fas fa-shopping-cart"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Nút điều hướng chỉ hiển thị khi có trên 4 sản phẩm -->
+        <th:block th:if="${quantityProductNewest > 4}">
+          <a
+            class="carousel-control-prev"
+            href="#productCarousel"
+            role="button"
+            data-slide="prev"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a
+            class="carousel-control-next"
+            href="#productCarousel"
+            role="button"
+            data-slide="next"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </th:block>
+      </div>
+    </div>
+
+    <div class="container mt-5" id="sale-products">
+      <h2 class="btn btn-info" style="border-radius: 40px; font-size: 20px;">
+        Sản phẩm giảm giá
+      </h2>
+      <div id="productSaleCarousel" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          <!-- Slide đầu tiên (active) -->
+          <div class="carousel-item active">
+            <div class="row">
+              <div
+                class="col-md-3"
+                th:each="product, stat : ${productSale}"
+                th:if="${stat.index < 4}"
+              >
+                <div class="product-card">
+                  <div class="product-image">
+                    <img
+                      th:src="${product.image}"
+                      alt="Product Image"
+                      onerror="this.src='https://via.placeholder.com/200x200'"
+                    />
+                  </div>
+                  <h4 th:text="${product.name}">Product Name</h4>
+                  <p>
+                    <span
+                      class="product-price"
+                      th:text="${product.price} + ' $'"
+                      >Product Price</span
+                    >
+                    <span
+                      class="badge badge-danger"
+                      th:text="'Giảm ' + ${product.discount} + '%'"
+                      >Discount</span
+                    >
+                  </p>
+                  <div class="d-flex justify-content-between">
+                    <!-- Nút Xem Chi Tiết -->
+                    <a
+                      th:href="@{/home/product/{id}(id=${product.id})}"
+                      class="btn btn-success"
+                    >
+                      Chi tiết
+                    </a>
+
+                    <!-- Nút Giỏ Hàng -->
+                    <a
+                      th:href="@{/user/cart/{id}(id=${product.id})}"
+                      class="btn btn-warning"
+                    >
+                      <i class="fas fa-shopping-cart"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide thứ hai (nếu có) -->
+          <div class="carousel-item" th:if="${quantityProductSale > 4}">
+            <div class="row">
+              <div
+                class="col-md-3"
+                th:each="product, stat : ${productSale}"
+                th:if="${stat.index >= 4 && stat.index < 8}"
+              >
+                <div class="product-card">
+                  <div class="product-image">
+                    <img
+                      th:src="${product.image}"
+                      alt="Product Image"
+                      onerror="this.src='https://via.placeholder.com/200x200'"
+                    />
+                  </div>
+                  <h4 th:text="${product.name}">Product Name</h4>
+                  <p>
+                    <span
+                      class="product-price"
+                      th:text="${product.price} + ' $'"
+                      >Product Price</span
+                    >
+                    <span
+                      class="badge badge-danger"
+                      th:text="'Giảm ' + ${product.discount} + '%'"
+                      >Discount</span
+                    >
+                  </p>
+                  <div class="d-flex justify-content-between">
+                    <!-- Nút Xem Chi Tiết -->
+                    <a
+                      th:href="@{/home/product/{id}(id=${product.id})}"
+                      class="btn btn-success"
+                    >
+                      Chi tiết
+                    </a>
+
+                    <!-- Nút Giỏ Hàng -->
+                    <a
+                      th:href="@{/user/cart/{id}(id=${product.id})}"
+                      class="btn btn-warning"
+                    >
+                      <i class="fas fa-shopping-cart"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Nút điều hướng chỉ hiển thị khi có trên 4 sản phẩm -->
+        <th:block th:if="${quantityProductSale > 4}">
+          <a
+            class="carousel-control-prev"
+            href="#productSaleCarousel"
+            role="button"
+            data-slide="prev"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a
+            class="carousel-control-next"
+            href="#productSaleCarousel"
+            role="button"
+            data-slide="next"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </th:block>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer mt-5">
+      <div class="container text-center">
+        <p>&copy; 2024 Shop Rau Củ Quả. All Rights Reserved.</p>
+        <a href="#">Chính sách bảo mật</a> | <a href="#">Điều khoản sử dụng</a>
+      </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Lấy tất cả các link trong navigation
+        const navLinks = document.querySelectorAll(".nav-link");
+
+        navLinks.forEach((link) => {
+          link.addEventListener("click", function (e) {
+            // Chỉ xử lý cho các link có href bắt đầu bằng #
+            if (this.getAttribute("href").startsWith("#")) {
+              e.preventDefault();
+
+              const targetId = this.getAttribute("href");
+              const targetElement = document.querySelector(targetId);
+
+              if (targetElement) {
+                // Scroll đến phần tử với animation mượt
+                targetElement.scrollIntoView({
+                  behavior: "smooth",
+                  block: "start",
+                });
+
+                // Thêm active class cho link được click
+                navLinks.forEach((l) => l.classList.remove("active"));
+                this.classList.add("active");
+              }
+            }
+          });
+        });
+
+        // Highlight navigation item khi scroll
+        window.addEventListener("scroll", function () {
+          let current = "";
+          const sections = document.querySelectorAll("div[id]");
+
+          sections.forEach((section) => {
+            const sectionTop = section.offsetTop;
+            if (pageYOffset >= sectionTop - 60) {
+              current = section.getAttribute("id");
+            }
+          });
+
+          navLinks.forEach((link) => {
+            link.classList.remove("active");
+            if (link.getAttribute("href") === `#${current}`) {
+              link.classList.add("active");
+            }
+          });
+        });
+      });
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const slider = document.querySelector(".banner-slider");
+        const slides = document.querySelector(".slides");
+        const slideElements = document.querySelectorAll(".slide");
+        const prevBtn = document.querySelector(".prev-btn");
+        const nextBtn = document.querySelector(".next-btn");
+        const dotsContainer = document.querySelector(".slider-dots");
+
+        let currentSlide = 0;
+        const slideCount = slideElements.length;
+
+        // Tạo chấm chỉ vị trí
+        slideElements.forEach((_, index) => {
+          const dot = document.createElement("div");
+          dot.classList.add("dot");
+          if (index === 0) dot.classList.add("active");
+          dot.addEventListener("click", () => goToSlide(index));
+          dotsContainer.appendChild(dot);
+        });
+
+        // Cập nhật chấm chỉ vị trí
+        function updateDots() {
+          document.querySelectorAll(".dot").forEach((dot, index) => {
+            dot.classList.toggle("active", index === currentSlide);
+          });
+        }
+
+        // Di chuyển đến slide cụ thể
+        function goToSlide(index) {
+          currentSlide = index;
+          slides.style.transform = `translateX(-${currentSlide * 100}%)`;
+          updateDots();
+        }
+
+        // Xử lý nút prev/next
+        prevBtn.addEventListener("click", () => {
+          currentSlide = (currentSlide - 1 + slideCount) % slideCount;
+          goToSlide(currentSlide);
+        });
+
+        nextBtn.addEventListener("click", () => {
+          currentSlide = (currentSlide + 1) % slideCount;
+          goToSlide(currentSlide);
+        });
+
+        // Tự động chuyển slide
+        function autoSlide() {
+          currentSlide = (currentSlide + 1) % slideCount;
+          goToSlide(currentSlide);
+        }
+
+        // Set interval cho tự động chuyển (5 giây)
+        let slideInterval = setInterval(autoSlide, 3000);
+
+        // Dừng tự động chuyển khi hover vào slider
+        slider.addEventListener("mouseenter", () => {
+          clearInterval(slideInterval);
+        });
+
+        // Tiếp tục tự động chuyển khi rời chuột
+        slider.addEventListener("mouseleave", () => {
+          slideInterval = setInterval(autoSlide, 5000);
+        });
+      });
+    </script>
+  </body>
+</html>
