@@ -19,6 +19,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
+    @Column(name = "status")
+    String status;
+
     @Column(name = "username")
     String username;
 

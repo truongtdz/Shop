@@ -154,7 +154,7 @@
 
       <!-- Statistics Cards -->
       <div class="row g-4">
-        <div class="col-md-4">
+        <div class="col-md-3">
           <div class="dashboard-card card text-center p-4">
             <div class="card-body">
               <i class="fas fa-users card-icon text-primary"></i>
@@ -164,7 +164,7 @@
           </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-3">
           <div class="dashboard-card card text-center p-4">
             <div class="card-body">
               <i class="fas fa-box card-icon text-success"></i>
@@ -174,12 +174,22 @@
           </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-3">
           <div class="dashboard-card card text-center p-4">
             <div class="card-body">
               <i class="fas fa-shopping-cart card-icon text-warning"></i>
               <h5 class="card-title">Tổng Đơn Hàng</h5>
               <p class="card-number" th:text="${countOrder ?: '0'}">0</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="dashboard-card card text-center p-4">
+            <div class="card-body">
+              <i class="fas fa-coins card-icon text-success"></i>
+              <h5 class="card-title">Tổng Doanh Thu</h5>
+              <p class="card-number" th:text="${icrease != null ? icrease + '$' : '0$'}">0</p>
             </div>
           </div>
         </div>

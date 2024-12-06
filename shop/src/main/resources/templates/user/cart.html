@@ -1,244 +1,294 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Giỏ Hàng - Shop Rau-Quả</title>
+    <title>Giỏ Hàng - Phone Shop</title>
     <link
-            href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-            rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
     />
     <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
     />
     <style>
-        body {
-          background-color: #e9f8e8;
-        }
+      body {
+        background-color: #f8f9fa;
+      }
 
-        .header {
-          background: linear-gradient(135deg, #4caf50, #45a049);
-          padding: 15px 0;
-          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
+      .header {
+        background: linear-gradient(135deg, #2c3e50, #3498db);
+        padding: 15px 0;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
 
-        .header .logo {
-          width: 60px;
-          height: 60px;
-          border-radius: 50%;
-          border: 3px solid #fff;
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-          transition: transform 0.3s ease;
-        }
+      .header .logo {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        border: 3px solid #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+      }
 
-        .header .header-title {
-          font-size: 32px;
-          font-weight: 700;
-          color: #fff;
-          text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-          margin-left: 15px;
-        }
+      .header .header-title {
+        font-size: 32px;
+        font-weight: 700;
+        color: #fff;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        margin-left: 15px;
+      }
 
-        .cart-container {
-          background: white;
-          border-radius: 15px;
-          padding: 30px;
-          margin: 30px auto;
-          box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-        }
+      .cart-container {
+        background: white;
+        border-radius: 15px;
+        padding: 30px;
+        margin: 30px auto;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        animation: fadeIn 0.5s ease-out;
+      }
 
-        .cart-title {
-          color: #2c3e50;
-          font-size: 24px;
-          font-weight: 600;
-          margin-bottom: 25px;
-          padding-bottom: 15px;
-          border-bottom: 2px solid #e9f8e8;
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
         }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
 
+      .cart-title {
+        color: #2c3e50;
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 25px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid #f1f1f1;
+      }
+
+      .cart-item {
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 15px;
+        transition: all 0.3s ease;
+      }
+
+      .cart-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .product-image {
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 8px;
+      }
+
+      .product-name {
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 5px;
+      }
+
+      .product-price {
+        color: #e74c3c;
+        font-weight: 600;
+        font-size: 1.1rem;
+      }
+
+      .quantity-control {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .quantity-btn {
+        background: #3498db;
+        color: white;
+        border: none;
+        width: 30px;
+        height: 30px;
+        border-radius: 5px;
+        display: inline-block;
+        text-align: center;
+        line-height: 30px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+      }
+
+      .quantity-btn:hover {
+        background: #2980b9;
+        text-decoration: none;
+        color: white;
+        transform: translateY(-2px);
+      }
+
+      .remove-btn {
+        color: #e74c3c;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 1.2rem;
+      }
+
+      .remove-btn:hover {
+        color: #c0392b;
+        transform: scale(1.1);
+      }
+
+      .cart-summary {
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px;
+      }
+
+      .checkout-btn {
+        background: #3498db;
+        color: white;
+        border: none;
+        padding: 15px 30px;
+        border-radius: 25px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        width: 100%;
+        transition: all 0.3s ease;
+        display: inline-block;
+        text-align: center;
+        text-decoration: none;
+      }
+
+      .checkout-btn:hover {
+        background: #2980b9;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        color: white;
+        text-decoration: none;
+      }
+
+      .empty-cart {
+        text-align: center;
+        padding: 50px 0;
+        animation: fadeIn 0.5s ease-out;
+      }
+
+      .empty-cart i {
+        font-size: 4rem;
+        color: #bdc3c7;
+        margin-bottom: 20px;
+      }
+
+      .continue-shopping {
+        color: #3498db;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: inline-block;
+        margin-top: 20px;
+      }
+
+      .continue-shopping:hover {
+        color: #2980b9;
+        transform: translateX(-5px);
+        text-decoration: none;
+      }
+
+      .notification {
+        margin-bottom: 30px;
+        animation: slideIn 0.3s ease-out;
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Feature badges */
+      .feature-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+        margin: 5px 0;
+      }
+
+      .feature-badge {
+        font-size: 0.8rem;
+        padding: 3px 8px;
+        background-color: #f1f1f1;
+        border-radius: 12px;
+        color: #333;
+      }
+
+      /* Responsive styles */
+      @media (max-width: 768px) {
         .cart-item {
-          background: #f8f9fa;
-          border-radius: 10px;
-          padding: 15px;
-          margin-bottom: 15px;
-          transition: transform 0.3s ease;
-        }
-
-        .cart-item:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          text-align: center;
         }
 
         .product-image {
-          width: 100px;
-          height: 100px;
-          object-fit: cover;
-          border-radius: 8px;
-        }
-
-        .product-name {
-          font-weight: 600;
-          color: #2c3e50;
-          margin-bottom: 5px;
-        }
-
-        .product-price {
-          color: #e67e22;
-          font-weight: 600;
-          font-size: 1.1rem;
+          margin-bottom: 15px;
         }
 
         .quantity-control {
-          display: flex;
-          align-items: center;
-          gap: 10px;
+          justify-content: center;
+          margin: 15px 0;
         }
-
-        .quantity-btn {
-          background: #4caf50;
-          color: white;
-          border: none;
-          width: 30px;
-          height: 30px;
-          border-radius: 5px;
-          display: inline-block;  /* $ể thẻ <a> có thể hiển thị như một nút */
-          text-align: center;  /* Căn giữa nội dung */
-          line-height: 30px;  /* Canh nội dung theo chiều dọc */
-          cursor: pointer;
-          transition: background-color 0.3s;
-          text-decoration: none;  /* Loại bỏ gạch chân */
-        }
-
-        .quantity-btn:hover {
-          background: #a2c8a6;
-          text-decoration: none;
-          color: #210a95;
-        }
-
-        .quantity-input {
-          width: 50px;
-          text-align: center;
-          border: 1px solid #ddd;
-          border-radius: 5px;
-          padding: 5px;
-        }
-
-        .remove-btn {
-          color: #e74c3c;
-          cursor: pointer;
-          transition: color 0.3s;
-        }
-
-        .remove-btn:hover {
-          color: #c0392b;
-        }
-
-        .cart-summary {
-          background: #f8f9fa;
-          border-radius: 10px;
-          padding: 20px;
-          margin: 10px;
-        }
-
-        .total-price {
-          font-size: 1.2rem;
-          font-weight: 600;
-          color: #e67e22;
-        }
-
-        .checkout-btn {
-          background: #4caf50;
-          color: white;
-          border: none;
-          padding: 12px 30px;
-          border-radius: 25px;
-          font-size: 1.1rem;
-          font-weight: 600;
-          width: 100%;
-          margin-top: 20px;
-          transition: all 0.3s ease;
-          display: inline-block;  /* $ể thẻ <a> có thể hiển thị như một nút */
-          text-align: center;  /* Căn giữa nội dung */
-          line-height: 30px;  /* Canh nội dung theo chiều dọc */
-          text-decoration: none;  /* Loại bỏ gạch chân */
-        }
-
-        .checkout-btn:hover {
-          background: #45a049;
-          transform: translateY(-2px);
-          box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
-        }
-
-        .empty-cart {
-          text-align: center;
-          padding: 50px 0;
-        }
-
-        .empty-cart i {
-          font-size: 4rem;
-          color: #ccc;
-          margin-bottom: 20px;
-        }
-
-        .continue-shopping {
-          color: #4caf50;
-          text-decoration: none;
-          font-weight: 600;
-          transition: color 0.3s;
-        }
-
-        .continue-shopping:hover {
-          color: #45a049;
-          text-decoration: none;
-        }
-        .notification {
-        margin-bottom: 30px;
       }
     </style>
-</head>
-<body>
-<!-- Header -->
-<header class="header">
-    <div class="container">
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
         <div class="d-flex align-items-center justify-content-between">
-            <a
-                    href="/home"
-                    class="d-flex align-items-center text-decoration-none"
-            >
-                <img class="logo" th:src="@{/img/logo.jpg}" alt="Logo" />
-                <h1 class="header-title">Shop Rau-Quả</h1>
-            </a>
+          <a
+            href="/home"
+            class="d-flex align-items-center text-decoration-none"
+          >
+            <img class="logo" th:src="@{/img/logoshop.jpg}" alt="Logo" />
+            <h1 class="header-title">Phone Shop</h1>
+          </a>
         </div>
-    </div>
-</header>
+      </div>
+    </header>
 
-<!-- Cart Content -->
-<div class="container">
-    <div class="cart-container">
+    <!-- Cart Content -->
+    <div class="container">
+      <div class="cart-container">
         <h2 class="cart-title">
-            <i class="fas fa-shopping-cart"></i> Giỏ Hàng
+          <i class="fas fa-shopping-cart"></i> Giỏ Hàng
         </h2>
 
         <!-- Notification -->
         <div class="notification" th:if="${notification}">
-            <div
-                    role="alert"
-                    class="alert-success"
-                    th:classappend="${notification.equals('Fail')} ? 'alert-danger' : 'alert-success'"
-            >
-                <span th:text="${message}"></span>
-            </div>
+          <div
+            role="alert"
+            class="alert"
+            th:classappend="${notification.equals('Fail')} ? 'alert-danger' : 'alert-success'"
+          >
+            <span th:text="${message}"></span>
+          </div>
         </div>
 
         <!-- Empty Cart Message -->
         <div class="empty-cart" th:if="${#lists.isEmpty(carts)}">
-            <i class="fas fa-shopping-basket"></i>
-            <h3>Giỏ hàng trống</h3>
-            <p>Hãy thêm sản phẩm vào giỏ hàng của bạn</p>
-            <a href="/home" class="continue-shopping">
-                <i class="fas fa-arrow-left"></i> Tiếp tục mua sắm
-            </a>
+          <i class="fas fa-shopping-cart"></i>
+          <h3>Giỏ hàng trống</h3>
+          <p>Hãy thêm sản phẩm vào giỏ hàng của bạn</p>
+          <a href="/home" class="continue-shopping">
+            <i class="fas fa-arrow-left"></i> Tiếp tục mua sắm
+          </a>
         </div>
 
         <!-- Cart Items -->
@@ -247,47 +297,64 @@
             <div class="row align-items-center">
               <div class="col-md-2">
                 <img
-                  th:src="@{${cart.product.image}}"
+                  th:src="${cart.product.image}"
                   class="product-image"
                   alt="Product"
+                  onerror="this.src='https://via.placeholder.com/120x120'"
                 />
               </div>
-              <div class="col-md-2">
+              <div class="col-md-4">
                 <h5 class="product-name" th:text="${cart.product.name}">
                   Product Name
                 </h5>
+                <div class="feature-badges">
+                  <span class="feature-badge" th:text="${cart.product.ram}"
+                    >8GB RAM</span
+                  >
+                  <span class="feature-badge" th:text="${cart.product.storage}"
+                    >128GB</span
+                  >
+                  <span class="feature-badge" th:text="${cart.product.screen}"
+                    >6.7"</span
+                  >
+                </div>
               </div>
-              <div class="col-md-1">
+              <div class="col-md-2">
                 <p class="product-price" th:text="${cart.product.price + ' $'}">
                   Price
                 </p>
-              </div>
-              <div class="col-md-1">
-                <p
-                  class="product-discount"
-                  th:text="${cart.product.discount + ' %'}"
+                <span
+                  class="badge badge-danger"
+                  th:if="${cart.product.discount > 0}"
+                  th:text="'Giảm ' + ${cart.product.discount} + '%'"
                 >
-                  Discount
-                </p>
+                </span>
               </div>
               <div class="col-md-2">
                 <div class="quantity-control">
-                  <a class="quantity-btn" th:if="${cart.quantity > 1}" 
-                     th:href="@{/user/cart/{id}/{quantity}(id=${cart.product.id}, quantity=-1)}">
+                  <a
+                    class="quantity-btn"
+                    th:if="${cart.quantity > 1}"
+                    th:href="@{/user/cart/{id}/{quantity}(id=${cart.product.id}, quantity=-1)}"
+                  >
                     <i class="fas fa-minus"></i>
                   </a>
-                  <p
-                    class="product-name"
-                    th:text="${cart.quantity}"
-                  > Quantity
-                  </p>
-                  <a class="quantity-btn" th:href="@{/user/cart/{id}/{quantity}(id=${cart.product.id}, quantity=1)}">
+                  <span class="product-name" th:text="${cart.quantity}"
+                    >Quantity</span
+                  >
+                  <a
+                    class="quantity-btn"
+                    th:href="@{/user/cart/{id}/{quantity}(id=${cart.product.id}, quantity=1)}"
+                  >
                     <i class="fas fa-plus"></i>
                   </a>
                 </div>
               </div>
               <div class="col-md-1">
-                <p class="product-price" th:text="${(cart.product.price * (100 - cart.product.discount) / 100) * cart.quantity   + ' $'}">
+                <p
+                  class="product-price"
+                  th:text="${(cart.product.price * (100 - cart.product.discount) / 100) * cart.quantity + ' $'}"
+                >
                   Total
                 </p>
               </div>
@@ -306,11 +373,11 @@
             </a>
           </div>
         </div>
+      </div>
     </div>
-</div>
 
-<!-- Scripts -->
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>

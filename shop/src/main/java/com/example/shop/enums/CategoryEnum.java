@@ -1,6 +1,5 @@
 package com.example.shop.enums;
 
 public enum CategoryEnum {
-    RAU,
-    TRAI_CAY;
+    SamSung, Apple, Xiaomi, Vivo, Oppo, Realme;
 }

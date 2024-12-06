@@ -1,6 +1,7 @@
 package com.example.shop.service.impl;
 
 import com.example.shop.dto.Login;
+import com.example.shop.entity.Product;
 import com.example.shop.entity.User;
 import com.example.shop.repository.UserRepository;
 import com.example.shop.service.UserService;
@@ -21,34 +22,35 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
-    public Long getCount() {
-        return userRepository.count();
+    public int getCount() {
+        return userRepository.findByStatus("1").size();
     }
 
     @Override
     public List<User> getAllUser() {
-        return userRepository.findAll();
+        return userRepository.findByStatus("1");
     }
 
 
     @Override
     public User getUserById(Long userId) {
-        return userRepository.findById(userId).get();
+        return userRepository.findByIdAndStatus(userId, "1");
     }
 
     @Override
     public User getUserByUsername(String username) {
-        return userRepository.findByUsername(username);
+        return userRepository.findByUsernameAndStatus(username, "1");
     }
 
     @Override
     public boolean createUser(User newUser, MultipartFile file) {
-        if(userRepository.findByUsername(newUser.getUsername()) != null){
+        if(userRepository.findByUsernameAndStatus(newUser.getUsername(), "1") != null){
             return false;
         } else{
             if(file != null && !file.isEmpty()){
                 newUser.setImage(addImage(file));
             }
+            newUser.setStatus("1");
             userRepository.save(newUser);
             return true;
         }
@@ -57,7 +59,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUser(User updateUser, Long userId, MultipartFile file) {
-        User user = userRepository.findById(userId).get();
+        User user = userRepository.findByIdAndStatus(userId, "1");
 
         if(updateUser.getPassword() != null){
             user.setPassword(updateUser.getPassword());
@@ -78,14 +80,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUser(Long userId) {
-        userRepository.deleteById(userId);
+        User user = userRepository.findByIdAndStatus(userId, "1");
+
+        user.setStatus("0");
+
+        userRepository.save(user);
     }
 
     @Override
     public boolean login(Login request) {
-        User user = userRepository.findByUsername(request.getUsername());
+        User user = userRepository.findByUsernameAndStatus(request.getUsername(), "1");
 
-        if(user != null && user.getPassword().equals(request.getPassword())){
+        if(user != null && user.getStatus().equals("1") && user.getPassword().equals(request.getPassword())){
             return true;
         } else return false;
     }
@@ -95,7 +101,7 @@ public class UserServiceImpl implements UserService {
         String result = "";
         try {
             if (!image.isEmpty()) {
-                String folder = "D:/_VegetableShop/ShopSale/shop/src/main/resources/static/img/";
+                String folder = "D:/PhoneShop/shop/src/main/resources/static/img/";
                 File directory = new File(folder);
                 if (!directory.exists()) {
                     directory.mkdirs(); // Tạo thư mục nếu chưa tồn tại

@@ -26,6 +26,13 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public Long getIcrease() {
+        return orderRepository.findAll().stream()
+                .mapToLong(o -> Long.valueOf(o.getTotal()))
+                .sum();
+    }
+
+    @Override
     public List<Order> getAllOrder() {
         return orderRepository.findAll();
     }

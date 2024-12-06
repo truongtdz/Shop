@@ -25,18 +25,18 @@ public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
 
     @Override
-    public Long getCount(){
-        return productRepository.count();
+    public int getCount(){
+        return productRepository.findByStatus("1").size();
     }
 
     @Override
     public List<Product> getAllProduct() {
-        return productRepository.findAll();
+        return productRepository.findByStatus("1");
     }
 
     @Override
     public Product getProductById(Long productId) {
-        return productRepository.findById(productId).get();
+        return productRepository.findByIdAndStatus(productId, "1");
     }
 
     @Override
@@ -46,12 +46,13 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public boolean createProduct(Product newProduct, MultipartFile image) {
-        if (productRepository.findByName(newProduct.getName()) != null) {
+        if (productRepository.findByNameAndStatus(newProduct.getName(), "1") != null) {
             return false;
         } else {
             if(image != null && !image.isEmpty()){
                 newProduct.setImage(addImage(image));
             }
+            newProduct.setStatus("1");
             newProduct.setCreateDate(new Date());
             productRepository.save(newProduct);
             return true;
@@ -63,7 +64,7 @@ public class ProductServiceImpl implements ProductService {
         Product oldProduct = productRepository.findById(productId).get();
 
         if(updateProduct.getName() != null && !updateProduct.getName().isEmpty()){
-            if (productRepository.findByName(updateProduct.getName()) != null) {
+            if (productRepository.findByNameAndStatus(updateProduct.getName(), "1") != null) {
                 return false;
             }
             oldProduct.setName(updateProduct.getName());
@@ -81,6 +82,18 @@ public class ProductServiceImpl implements ProductService {
         if(updateProduct.getDescription() != null && !updateProduct.getDescription().isEmpty()){
             oldProduct.setDescription(updateProduct.getDescription());
         }
+        if(updateProduct.getBattery() != null && !updateProduct.getBattery().isEmpty()){
+            oldProduct.setBattery(updateProduct.getBattery());
+        }
+        if(updateProduct.getScreen() != null && !updateProduct.getScreen().isEmpty()){
+            oldProduct.setScreen(updateProduct.getScreen());
+        }
+        if(updateProduct.getStorage() != null && !updateProduct.getStorage().isEmpty()){
+            oldProduct.setStorage(updateProduct.getStorage());
+        }
+        if(updateProduct.getRam() != null && !updateProduct.getRam().isEmpty()){
+            oldProduct.setRam(updateProduct.getRam());
+        }
         if(image != null && !image.isEmpty()){
             oldProduct.setImage(addImage(image));
         }
@@ -94,7 +107,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void updateQuantityProduct(List<Cart> carts) {
         for(Cart cart : carts){
-            Product product = productRepository.findById(cart.getProduct().getId()).get();
+            Product product = productRepository.findByIdAndStatus(cart.getProduct().getId(), "1");
 
             product.setStock(product.getStock() - cart.getQuantity());
 
@@ -105,12 +118,16 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void deleteProduct(Long productId) {
-        productRepository.deleteById(productId);
+        Product product = productRepository.findByIdAndStatus(productId, "1");
+
+        product.setStatus("0");
+
+        productRepository.save(product);
     }
 
     @Override
     public List<Product> getProductNewest() {
-        List<Product> products = productRepository.findAll().stream()
+        List<Product> products = productRepository.findByStatus("1").stream()
                 .sorted(Comparator.comparing(Product::getCreateDate).reversed())  // Sắp xếp theo ngày tạo từ mới đến cũ
                 .limit(8)  // Lấy 8 sản phẩm mới nhất
                 .collect(Collectors.toList());  // Thu thập kết quả vào danh sách
@@ -120,7 +137,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getProductSale() {
-        return productRepository.findAll().stream()
+        return productRepository.findByStatus("1").stream()
                 .sorted(Comparator.comparing(Product::getDiscount).reversed())  // Sắp xếp theo ngày tạo từ mới đến cũ
                 .limit(8)  // Lấy 8 sản phẩm mới nhất
                 .collect(Collectors.toList());  // Thu thập kết quả vào danh sách
@@ -131,7 +148,7 @@ public class ProductServiceImpl implements ProductService {
         String result = "";
         try {
             if (!image.isEmpty()) {
-                String folder = "D:/_VegetableShop/ShopSale/shop/src/main/resources/static/img/";
+                String folder = "D:/PhoneShop/shop/src/main/resources/static/img/";
                 File directory = new File(folder);
                 if (!directory.exists()) {
                     directory.mkdirs(); // Tạo thư mục nếu chưa tồn tại
@@ -159,6 +176,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> searchProductByName(String name) {
-        return productRepository.findByNameContainingOrDescriptionContaining(name, name);
+        return productRepository.findByNameContainingOrDescriptionContainingAndStatus(name, name, "1");
     }
 }

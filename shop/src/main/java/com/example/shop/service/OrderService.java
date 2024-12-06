@@ -11,6 +11,9 @@ public interface OrderService {
     // View count Order
     Long getCount();
 
+    // Total Price
+    Long getIcrease();
+
     // View all Order
     List<Order> getAllOrder();
 

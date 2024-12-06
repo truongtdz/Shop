@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public interface ProductService {
     // View count Product
-    Long getCount();
+    int getCount();
 
     // View All Product
     List<Product> getAllProduct();

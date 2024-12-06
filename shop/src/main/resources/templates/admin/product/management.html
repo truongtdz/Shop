@@ -203,8 +203,12 @@
                 <th>Tên Sản Phẩm</th>
                 <th>Giá</th>
                 <th>Giảm Giá</th>
-                <th>Danh Mục</th>
-                <th>Tồn Kho</th>
+                <th>Thương Hiệu</th>
+                <th>Màn Hình</th>
+                <th>Dung Lương Pin</th>
+                <th>Ram</th>
+                <th>Lưu Trữ</th>
+                <th>Trong Kho</th>
                 <th>Mô Tả</th>
                 <th>Hành Động</th>
               </tr>
@@ -233,6 +237,10 @@
                   </span>
                 </td>
                 <td th:text="${product.category}"></td>
+                <td th:text="${product.screen}"></td>
+                <td th:text="${product.battery}"></td>
+                <td th:text="${product.ram}"></td>
+                <td th:text="${product.storage}"></td>
                 <td>
                   <span class="stock-badge">
                     <i class="fas fa-cubes me-1"></i>

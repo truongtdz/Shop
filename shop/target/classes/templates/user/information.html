@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Thông Tin Tài Khoản - Shop Rau-Quả</title>
+    <title>Thông Tin Tài Khoản - Phone Shop</title>
     <link
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
       rel="stylesheet"
@@ -14,7 +14,7 @@
     />
     <style>
       body {
-        background-color: #e9f8e8;
+        background-color: #f8f9fa;
         padding-top: 20px;
         padding-bottom: 20px;
       }
@@ -26,26 +26,44 @@
         padding: 30px;
         margin: 20px auto;
         max-width: 800px;
+        animation: fadeIn 0.5s ease-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
 
       .profile-header {
         text-align: center;
         margin-bottom: 30px;
         padding-bottom: 20px;
-        border-bottom: 2px solid #e9f8e8;
+        border-bottom: 2px solid #f1f1f1;
       }
 
       .profile-avatar {
         width: 120px;
         height: 120px;
         border-radius: 50%;
-        border: 3px solid #4caf50;
+        border: 3px solid #3498db;
         padding: 3px;
         margin-bottom: 15px;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+      }
+
+      .profile-avatar:hover {
+        transform: scale(1.05);
       }
 
       .profile-title {
-        color: #4caf50;
+        color: #3498db;
         font-size: 24px;
         font-weight: 600;
       }
@@ -55,6 +73,12 @@
         padding: 15px;
         border-radius: 10px;
         background-color: #f8f9fa;
+        transition: all 0.3s ease;
+      }
+
+      .info-group:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       }
 
       .info-label {
@@ -73,98 +97,92 @@
       }
 
       .btn-edit {
-        background: linear-gradient(135deg, #4caf50, #45a049);
+        background: linear-gradient(135deg, #3498db, #2980b9);
         border: none;
         border-radius: 25px;
         color: white;
         padding: 10px 30px;
         font-weight: 600;
-        transition: all 0.3s;
+        transition: all 0.3s ease;
       }
 
       .btn-edit:hover {
         transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+        box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
         color: white;
       }
 
       .back-home {
-        color: #4caf50;
+        color: #3498db;
         text-decoration: none;
         font-weight: 600;
         display: inline-block;
         margin-bottom: 20px;
-        transition: all 0.3s;
+        transition: all 0.3s ease;
       }
 
       .back-home:hover {
-        color: #45a049;
+        color: #2980b9;
         text-decoration: none;
         transform: translateX(-5px);
       }
 
       .section-title {
-        color: #4caf50;
+        color: #3498db;
         margin-bottom: 20px;
         padding-bottom: 10px;
-        border-bottom: 2px solid #e9f8e8;
+        border-bottom: 2px solid #f1f1f1;
       }
 
-      .address-info {
-        background-color: #fff;
-        padding: 15px;
-        border-radius: 10px;
-        margin-top: 20px;
+      .form-control {
+        border-radius: 8px;
+        border: 2px solid #e0e0e0;
+        padding: 10px 15px;
+        transition: all 0.3s ease;
+      }
+
+      .form-control:focus {
+        border-color: #3498db;
+        box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
       }
 
       .form-control[readonly] {
-        background-color: #fff;
-        cursor: default;
-      }
-
-      .form-control:not([readonly]) {
-        background-color: #fff;
-        border-color: #4caf50;
-      }
-
-      .edit-mode .form-control {
-        background-color: #ffffff;
-        cursor: text;
+        background-color: #f8f9fa;
+        cursor: not-allowed;
       }
 
       .btn-save {
-        display: none;
-        background: linear-gradient(135deg, #4caf50, #45a049);
+        background: linear-gradient(135deg, #3498db, #2980b9);
         border: none;
         border-radius: 25px;
         color: white;
         padding: 10px 30px;
         font-weight: 600;
-        transition: all 0.3s;
+        transition: all 0.3s ease;
         margin-right: 10px;
+        display: none;
       }
 
       .btn-save:hover {
         transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
-        color: white;
+        box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
       }
 
       .btn-cancel {
-        display: none;
-        background: #dc3545;
+        background: #e74c3c;
         border: none;
         border-radius: 25px;
         color: white;
         padding: 10px 30px;
         font-weight: 600;
-        transition: all 0.3s;
+        transition: all 0.3s ease;
+        display: none;
       }
 
       .btn-cancel:hover {
+        background: #c0392b;
         transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
-        color: white;
+        box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
       }
 
       .edit-mode .btn-save,
@@ -176,24 +194,6 @@
         display: none;
       }
 
-      .profile-image-container {
-        position: relative;
-        margin: 20px auto;
-        text-align: center;
-      }
-
-      .profile-avatar {
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 3px solid #4caf50;
-        padding: 3px;
-        background-color: white;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        transition: all 0.3s ease;
-      }
-
       .image-upload-section {
         margin-top: 10px;
         text-align: center;
@@ -202,15 +202,46 @@
 
       .edit-mode .image-upload-section {
         display: block;
+        animation: fadeIn 0.3s ease-out;
       }
 
       .form-control-file {
-        max-width: 200px;
-        margin: 0 auto;
+        display: none;
       }
 
-      .edit-mode .image-upload-section {
-        display: block !important;
+      .upload-btn {
+        background: #3498db;
+        color: white;
+        padding: 8px 15px;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-block;
+        font-size: 14px;
+      }
+
+      .upload-btn:hover {
+        background: #2980b9;
+        transform: translateY(-2px);
+      }
+
+      .upload-btn i {
+        margin-right: 5px;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .user-container {
+          margin: 20px;
+          padding: 20px;
+        }
+
+        .btn-save,
+        .btn-cancel,
+        .btn-edit {
+          width: 100%;
+          margin: 5px 0;
+        }
       }
     </style>
   </head>
@@ -245,13 +276,18 @@
                     class="profile-avatar"
                     id="avatarPreview"
                     alt="User Avatar"
+                    onerror="this.src='https://via.placeholder.com/150'"
                   />
-                  <div class="image-upload-section" style="display: none">
+                  <div class="image-upload-section">
+                    <label for="file" class="upload-btn">
+                      <i class="fas fa-camera"></i> Chọn ảnh
+                    </label>
                     <input
                       type="file"
                       class="form-control-file"
                       id="file"
                       name="file"
+                      accept="image/*"
                       onchange="previewImage(this)"
                     />
                   </div>

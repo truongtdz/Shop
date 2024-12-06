@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Giới Thiệu - Shop Rau-Quả</title>
+    <title>Giới Thiệu - Phone Shop</title>
     <link
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
       rel="stylesheet"
@@ -14,13 +14,13 @@
     />
     <style>
       body {
-        background-color: #e9f8e8;
+        background-color: #f8f9fa;
         font-family: "Nunito", sans-serif;
       }
 
       /* Header Styles */
       .header {
-        background: linear-gradient(135deg, #4caf50, #45a049);
+        background: linear-gradient(135deg, #2c3e50, #3498db);
         padding: 15px 0;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       }
@@ -62,12 +62,12 @@
       }
 
       .section-title {
-        color: #4caf50;
+        color: #3498db;
         font-size: 24px;
         font-weight: 700;
         margin-bottom: 20px;
         padding-bottom: 10px;
-        border-bottom: 2px solid #e9f8e8;
+        border-bottom: 2px solid #f1f1f1;
       }
 
       .feature-card {
@@ -80,12 +80,12 @@
 
       .feature-card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 5px 15px rgba(76, 175, 80, 0.2);
+        box-shadow: 0 5px 15px rgba(52, 152, 219, 0.2);
       }
 
       .feature-icon {
         font-size: 40px;
-        color: #4caf50;
+        color: #3498db;
         margin-bottom: 15px;
       }
 
@@ -111,38 +111,13 @@
 
       .value-item:hover {
         transform: scale(1.05);
-        box-shadow: 0 8px 25px rgba(76, 175, 80, 0.2);
+        box-shadow: 0 8px 25px rgba(52, 152, 219, 0.2);
       }
 
       .value-icon {
         font-size: 36px;
-        color: #4caf50;
+        color: #3498db;
         margin-bottom: 15px;
-      }
-
-      .team-member {
-        text-align: center;
-        margin-bottom: 30px;
-      }
-
-      .member-image {
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-        margin-bottom: 15px;
-        border: 3px solid #4caf50;
-        padding: 5px;
-      }
-
-      .member-name {
-        color: #2c3e50;
-        font-weight: 600;
-        margin-bottom: 5px;
-      }
-
-      .member-position {
-        color: #666;
-        font-style: italic;
       }
 
       /* Animation */
@@ -175,8 +150,8 @@
             href="/home"
             class="d-flex align-items-center text-decoration-none"
           >
-            <img class="logo" th:src="@{/img/logo.jpg}" alt="Logo" />
-            <h1 class="header-title">Shop Rau-Quả</h1>
+            <img class="logo" th:src="@{/img/logoshop.jpg}" alt="Logo" />
+            <h1 class="header-title">Phone Shop</h1>
           </a>
         </div>
       </div>
@@ -191,10 +166,10 @@
             <i class="fas fa-store mr-2"></i>Về Chúng Tôi
           </h2>
           <p>
-            Shop Rau-Quả là địa chỉ tin cậy cung cấp các loại rau củ quả tươi
-            sạch, đảm bảo chất lượng và an toàn vệ sinh thực phẩm. Chúng tôi cam
-            kết mang đến cho khách hàng những sản phẩm tươi ngon nhất với giá cả
-            hợp lý.
+            Phone Shop là địa chỉ uy tín chuyên cung cấp các sản phẩm điện thoại
+            chính hãng từ các thương hiệu nổi tiếng. Với hơn 10 năm kinh nghiệm
+            trong lĩnh vực công nghệ, chúng tôi tự hào mang đến cho khách hàng
+            những sản phẩm chất lượng cùng dịch vụ chuyên nghiệp nhất.
           </p>
         </div>
 
@@ -206,31 +181,31 @@
           <div class="row">
             <div class="col-md-4">
               <div class="feature-card">
-                <i class="fas fa-leaf feature-icon"></i>
-                <h4 class="feature-title">Sản Phẩm Tươi Sạch</h4>
+                <i class="fas fa-shield-alt feature-icon"></i>
+                <h4 class="feature-title">Sản Phẩm Chính Hãng</h4>
                 <p class="feature-text">
-                  Rau củ quả được trồng và thu hoạch theo tiêu chuẩn VietGAP,
-                  đảm bảo an toàn cho sức khỏe.
+                  100% sản phẩm chính hãng, được nhập khẩu trực tiếp từ các nhà
+                  sản xuất uy tín.
                 </p>
               </div>
             </div>
             <div class="col-md-4">
               <div class="feature-card">
-                <i class="fas fa-truck feature-icon"></i>
-                <h4 class="feature-title">Giao Hàng Nhanh Chóng</h4>
+                <i class="fas fa-tools feature-icon"></i>
+                <h4 class="feature-title">Bảo Hành Chuyên Nghiệp</h4>
                 <p class="feature-text">
-                  Dịch vụ giao hàng trong ngày, đảm bảo sản phẩm đến tay khách
-                  hàng luôn tươi ngon.
+                  Dịch vụ bảo hành nhanh chóng, chuyên nghiệp với đội ngũ kỹ
+                  thuật viên giàu kinh nghiệm.
                 </p>
               </div>
             </div>
             <div class="col-md-4">
               <div class="feature-card">
                 <i class="fas fa-hand-holding-usd feature-icon"></i>
-                <h4 class="feature-title">Giá Cả Hợp Lý</h4>
+                <h4 class="feature-title">Giá Cả Cạnh Tranh</h4>
                 <p class="feature-text">
-                  Cam kết giá cả cạnh tranh và nhiều chương trình khuyến mãi hấp
-                  dẫn.
+                  Cam kết giá tốt nhất thị trường cùng nhiều chương trình khuyến
+                  mãi hấp dẫn.
                 </p>
               </div>
             </div>
@@ -257,7 +232,7 @@
             </div>
             <div class="col-md-3">
               <div class="value-item">
-                <i class="fas fa-heart value-icon"></i>
+                <i class="fas fa-headset value-icon"></i>
                 <h5>Tận Tâm</h5>
               </div>
             </div>
@@ -279,30 +254,31 @@
             <div class="col-md-6">
               <ul class="list-unstyled">
                 <li>
-                  <i class="fas fa-check text-success mr-2"></i>100% sản phẩm
-                  tươi sạch
+                  <i class="fas fa-check text-primary mr-2"></i>100% sản phẩm
+                  chính hãng
                 </li>
                 <li>
-                  <i class="fas fa-check text-success mr-2"></i>Đổi trả trong
-                  vòng 24h
+                  <i class="fas fa-check text-primary mr-2"></i>Bảo hành 12
+                  tháng
                 </li>
                 <li>
-                  <i class="fas fa-check text-success mr-2"></i>Giao hàng đúng
-                  hẹn
+                  <i class="fas fa-check text-primary mr-2"></i>1 đổi 1 trong 30
+                  ngày
                 </li>
               </ul>
             </div>
             <div class="col-md-6">
               <ul class="list-unstyled">
                 <li>
-                  <i class="fas fa-check text-success mr-2"></i>Tư vấn nhiệt
-                  tình
+                  <i class="fas fa-check text-primary mr-2"></i>Hỗ trợ kỹ thuật
+                  24/7
                 </li>
                 <li>
-                  <i class="fas fa-check text-success mr-2"></i>Giá cả hợp lý
+                  <i class="fas fa-check text-primary mr-2"></i>Giao hàng toàn
+                  quốc
                 </li>
                 <li>
-                  <i class="fas fa-check text-success mr-2"></i>Hỗ trợ 24/7
+                  <i class="fas fa-check text-primary mr-2"></i>Thu cũ đổi mới
                 </li>
               </ul>
             </div>
@@ -317,22 +293,21 @@
           <div class="row">
             <div class="col-md-6">
               <p>
-                <i class="fas fa-map-marker-alt text-success mr-2"></i>Địa chỉ:
+                <i class="fas fa-map-marker-alt text-primary mr-2"></i>Địa chỉ:
                 Số 298 Đ. Cầu Diễn, Minh Khai, Bắc Từ Liêm, Hà Nội
               </p>
               <p>
-                <i class="fas fa-phone text-success mr-2"></i>Hotline: 0123 456
-                789
+                <i class="fas fa-phone text-primary mr-2"></i>Hotline: 1900 1234
               </p>
             </div>
             <div class="col-md-6">
               <p>
-                <i class="fas fa-envelope text-success mr-2"></i>Email:
-                contact@shopquarau.com
+                <i class="fas fa-envelope text-primary mr-2"></i>Email:
+                support@phoneshop.com
               </p>
               <p>
-                <i class="fas fa-clock text-success mr-2"></i>Giờ làm việc: 8:00
-                - 22:00 (Thứ 2 - Chủ nhật)
+                <i class="fas fa-clock text-primary mr-2"></i>Giờ làm việc: 8:00
+                - 21:30 (Thứ 2 - Chủ nhật)
               </p>
             </div>
           </div>

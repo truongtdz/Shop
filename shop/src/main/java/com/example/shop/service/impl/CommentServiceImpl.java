@@ -16,12 +16,6 @@ public class CommentServiceImpl implements CommentService {
     @Autowired
     CommentRepository commentRepository;
 
-    @Autowired
-    ProductRepository productRepository;
-
-    @Autowired
-    UserRepository userRepository;
-
     @Override
     public List<Comment> findByProductId(Long productId) {
         return commentRepository.findByProductId(productId);

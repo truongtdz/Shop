@@ -20,6 +20,9 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
+    @Column(name = "status")
+    String status;
+
     @Column(name = "name")
     String name;
 
@@ -41,6 +44,18 @@ public class Product {
 
     @Column(name = "description")
     String description;
+
+    @Column(name = "screen")
+    String screen;
+
+    @Column(name = "storage")
+    String storage;
+
+    @Column(name = "ram")
+    String ram;
+
+    @Column(name = "battery")
+    String battery;
 
     @Column(name = "create_date")
     Date createDate;

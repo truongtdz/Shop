@@ -275,6 +275,10 @@
           <th>Mã SP</th>
           <th>Tên Sản Phẩm</th>
           <th>Hình Ảnh </th>
+          <th>Màn Hình</th>
+          <th>Dung Lương Pin</th>
+          <th>Ram</th>
+          <th>Lưu Trữ</th>
           <th>Đơn Giá</th>
           <th>Giảm Giá</th>
           <th>Số Lượng</th>
@@ -302,6 +306,26 @@
                     data-bs-target="#imageModal"
                     onclick="showImageModal(this)"
             />
+          </td>
+          <td>
+            <span>
+              <span th:text="${item.product.screen}"></span>
+            </span>
+          </td>
+          <td>
+            <span>
+              <span th:text="${item.product.battery}"></span>
+            </span>
+          </td>
+          <td>
+            <span>
+              <span th:text="${item.product.ram}"></span>
+            </span>
+          </td>
+          <td>
+            <span>
+              <span th:text="${item.product.storage}"></span>
+            </span>
           </td>
           <td>
                   <span class="discount-badge" th:if="${item.discount > 0}">

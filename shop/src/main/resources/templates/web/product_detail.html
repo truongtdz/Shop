@@ -1,399 +1,443 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chi Tiết Sản Phẩm - Shop Rau-Quả</title>
     <link
-            href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-            rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
     />
     <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
     />
     <style>
-        body {
-          background-color: #e9f8e8;
-        }
+      body {
+        background-color: #f8f9fa;
+      }
 
-        /* Header styles từ trang home */
-        .header {
-          background: linear-gradient(135deg, #4caf50, #45a049);
-          padding: 15px 0;
-          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
+      /* Header styles từ trang home */
+      .header {
+        background: linear-gradient(135deg, #2c3e50, #3498db);
+        padding: 15px 0;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
 
-        .header .logo {
-          width: 60px;
-          height: 60px;
-          border-radius: 50%;
-          border: 3px solid #fff;
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-          transition: transform 0.3s ease;
-        }
+      .header .logo {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        border: 3px solid #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+      }
 
-        .header .header-title {
-          font-size: 32px;
-          font-weight: 700;
-          color: #fff;
-          text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-          margin-left: 15px;
-        }
+      .header .header-title {
+        font-size: 32px;
+        font-weight: 700;
+        color: #fff;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        margin-left: 15px;
+      }
 
-        /* Product Detail Styles */
-        .product-container {
-          background: white;
-          border-radius: 15px;
-          padding: 30px;
-          margin: 30px auto;
-          box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-        }
+      /* Product Detail Styles */
+      .product-container {
+        background: white;
+        border-radius: 15px;
+        padding: 30px;
+        margin: 30px auto;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        animation: fadeIn 0.5s ease-out;
+      }
 
-        .product-image {
-          width: 100%;
-          height: 400px;
-          object-fit: cover;
-          border-radius: 10px;
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
         }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
 
-        .product-title {
-          color: #2c3e50;
-          font-size: 2rem;
-          font-weight: 600;
-          margin: 20px 0;
-        }
+      .product-image {
+        width: 100%;
+        height: 400px;
+        object-fit: contain;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+      }
 
-        .product-price {
-          font-size: 1.8rem;
-          color: #e67e22;
-          font-weight: bold;
-          margin-bottom: 15px;
-        }
+      .product-image:hover {
+        transform: scale(1.02);
+      }
 
-        .discount-badge {
-          background-color: #e74c3c;
-          color: white;
-          padding: 5px 15px;
-          border-radius: 20px;
-          font-size: 1rem;
-          margin-left: 10px;
-        }
+      .product-title {
+        color: #2c3e50;
+        font-size: 2rem;
+        font-weight: 600;
+        margin: 20px 0;
+      }
 
-        .product-description {
-          color: #666;
-          font-size: 1.1rem;
-          line-height: 1.6;
-          margin: 20px 0;
-        }
+      .product-price {
+        font-size: 1.8rem;
+        color: #e74c3c;
+        font-weight: bold;
+        margin-bottom: 15px;
+      }
 
-        .quantity-control {
-          display: flex;
-          align-items: center;
-          margin: 20px 0;
-        }
+      .discount-badge {
+        background-color: #e74c3c;
+        color: white;
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-size: 1rem;
+        margin-left: 10px;
+      }
 
-        .quantity-btn {
-          background: #4caf50;
-          color: white;
-          border: none;
-          padding: 8px 15px;
-          border-radius: 5px;
-          cursor: pointer;
-          transition: background-color 0.3s;
-        }
+      .specs-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        margin: 20px 0;
+        padding: 15px;
+        background: #f8f9fa;
+        border-radius: 10px;
+      }
 
-        .quantity-btn:hover {
-          background: #45a049;
-        }
+      .spec-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
 
-        .quantity-input {
-          width: 60px;
-          text-align: center;
-          margin: 0 10px;
-          padding: 5px;
-          border: 1px solid #ddd;
-          border-radius: 5px;
-        }
+      .spec-label {
+        font-weight: 600;
+        color: #2c3e50;
+        min-width: 100px;
+      }
 
-        .add-to-cart-btn {
-          background: #4caf50;
-          color: white;
-          border: none;
-          padding: 12px 30px;
-          border-radius: 25px;
-          font-size: 1.1rem;
-          font-weight: 600;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          display: inline-block;  /* $ể thẻ <a> có thể hiển thị như một nút */
-          text-align: center;  /* Căn giữa nội dung */
-          line-height: 30px;  /* Canh nội dung theo chiều dọc */
-          text-decoration: none;  /* Loại bỏ gạch chân */
-        }
+      .spec-value {
+        color: #666;
+      }
 
-        .add-to-cart-btn:hover {
-          background: #45a049;
-          transform: translateY(-2px);
-          box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
-          text-decoration: none;
-          color: #210a95;
-        }
+      .add-to-cart-btn {
+        background: #3498db;
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 25px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-block;
+        text-align: center;
+        text-decoration: none;
+        margin-top: 20px;
+      }
 
-        .product-info {
-          background: #f8f9fa;
-          padding: 20px;
-          border-radius: 10px;
-          margin-top: 20px;
-        }
+      .add-to-cart-btn:hover {
+        background: #2980b9;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        color: white;
+        text-decoration: none;
+      }
 
-        .product-info h4 {
-          color: #2c3e50;
-          margin-bottom: 15px;
-        }
+      .product-info {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 20px;
+      }
 
-        .product-info ul {
-          list-style: none;
-          padding: 0;
-        }
+      .product-info h4 {
+        color: #2c3e50;
+        margin-bottom: 15px;
+      }
 
-        .product-info li {
-          margin-bottom: 10px;
-          color: #666;
-        }
+      .product-info ul {
+        list-style: none;
+        padding: 0;
+      }
 
-        .product-info i {
-          color: #4caf50;
-          margin-right: 10px;
-        }
+      .product-info li {
+        margin-bottom: 10px;
+        color: #666;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
 
-        .comments-section {
-          background: white;
-          border-radius: 15px;
-          padding: 30px;
-          box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-        }
+      .product-info i {
+        color: #3498db;
+        font-size: 1.2rem;
+      }
 
-        .comments-title {
-          color: #2c3e50;
-          margin-bottom: 25px;
-          padding-bottom: 15px;
-          border-bottom: 2px solid #e9f8e8;
-        }
+      .comments-section {
+        background: white;
+        border-radius: 15px;
+        padding: 30px;
+        margin-top: 30px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      }
 
-        .comment-form {
-          margin-bottom: 30px;
-        }
+      .comments-title {
+        color: #2c3e50;
+        margin-bottom: 25px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid #f1f1f1;
+      }
 
-        .comment-form textarea {
-          border: 1px solid #dee2e6;
-          border-radius: 10px;
-          resize: none;
-        }
+      .comment-form {
+        margin-bottom: 30px;
+      }
 
-        .comment-form textarea:focus {
-          border-color: #4caf50;
-          box-shadow: 0 0 0 0.2rem rgba(76, 175, 80, 0.25);
-        }
+      .comment-form textarea {
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        resize: none;
+      }
 
-        .comment-item {
-          margin-bottom: 20px;
-          padding: 15px;
-          background: #f8f9fa;
-          border-radius: 10px;
-        }
+      .comment-form textarea:focus {
+        border-color: #2980b9;
+        box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.3);
+      }
 
-        .comment-header {
-          display: flex;
-          align-items: center;
-          margin-bottom: 10px;
-        }
+      .comment-item {
+        margin-bottom: 20px;
+        padding: 15px;
+        background: #f8f9fa;
+        border-radius: 10px;
+      }
 
-        .comment-avatar {
-          width: 40px;
-          height: 40px;
-          border-radius: 50%;
-          margin-right: 10px;
-          border: 2px solid #4caf50;
-        }
+      .comment-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+      }
 
-        .comment-info {
-          flex-grow: 1;
-        }
+      .comment-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 10px;
+        border: 2px solid #2980b9;
+      }
 
-        .comment-username {
-          margin: 0;
-          color: #2c3e50;
-          font-weight: 600;
-        }
+      .comment-info {
+        flex-grow: 1;
+      }
 
-        .comment-date {
-          color: #666;
-        }
+      .comment-username {
+        margin: 0;
+        color: #2c3e50;
+        font-weight: 600;
+      }
 
-        .comment-content {
-          color: #333;
-          line-height: 1.5;
-        }
+      .comment-date {
+        color: #666;
+      }
 
-        .login-notice {
-          padding: 20px;
-          background: #f8f9fa;
-          border-radius: 10px;
-          margin-bottom: 20px;
-        }
+      .comment-content {
+        color: #333;
+        line-height: 1.5;
+      }
 
-        .btn-outline-success {
-          border-color: #4caf50;
-          color: #4caf50;
-        }
+      .login-notice {
+        padding: 20px;
+        background: #f8f9fa;
+        border-radius: 10px;
+        margin-bottom: 20px;
+      }
 
-        .btn-outline-success:hover {
-          background-color: #4caf50;
-          color: white;
-        }
+      .btn-outline-primary {
+        border-color: #3498db;
+        color: #3498db;
+      }
+
+      .btn-outline-primary:hover {
+        background-color: #3498db;
+        color: white;
+      }
     </style>
-</head>
-<body>
-<!-- Header (giống trang home) -->
-<header class="header">
-    <div class="container">
+  </head>
+  <body>
+    <!-- Header (giống trang home) -->
+    <header class="header">
+      <div class="container">
         <div class="d-flex align-items-center justify-content-between">
-            <a
-                    href="/home"
-                    class="d-flex align-items-center text-decoration-none"
-            >
-                <img class="logo" th:src="@{/img/logo.jpg}" alt="Logo" />
-                <h1 class="header-title">Shop Rau-Quả</h1>
-            </a>
+          <a
+            href="/home"
+            class="d-flex align-items-center text-decoration-none"
+          >
+            <img class="logo" th:src="@{/img/logo.jpg}" alt="Logo" />
+            <h1 class="header-title">Shop Rau-Quả</h1>
+          </a>
         </div>
-    </div>
-</header>
+      </div>
+    </header>
 
-<!-- Product Detail Section -->
-<div class="container">
-    <div class="product-container">
+    <!-- Product Detail Section -->
+    <div class="container">
+      <div class="product-container">
         <div class="row">
-            <!-- Product Image -->
-            <div class="col-md-6">
-                <img
-                        th:src="${product.image}"
-                        class="product-image"
-                        alt="Product Image"
-                />
-            </div>
+          <!-- Product Image -->
+          <div class="col-md-6">
+            <img
+              th:src="${product.image}"
+              class="product-image"
+              alt="Product Image"
+            />
+          </div>
 
-            <!-- Product Info -->
-            <div class="col-md-6">
-                <h1 class="product-title" th:text="${product.name}">
-                    Tên Sản Phẩm
-                </h1>
-                <div class="d-flex align-items-center">
-              <span class="product-price" th:text="${product.price + ' đ'}"
-              >Giá</span
+          <!-- Product Info -->
+          <div class="col-md-6">
+            <h1 class="product-title" th:text="${product.name}">
+              Tên Sản Phẩm
+            </h1>
+            <div class="d-flex align-items-center">
+              <span class="product-price" th:text="${product.price + ' $'}"
+                >Giá</span
               >
-                <i class="fas fa-tag"></i>
-                <span th:text="'Giảm ' + ${product.discount} + '%'"
+              <i class="fas fa-tag"></i>
+              <span th:text="'Giảm ' + ${product.discount} + '%'"
                 >Giảm giá</span
-                >
-                </div>
-
-                <p class="product-description" th:text="${product.description}">
-                    Mô tả sản phẩm...
-                </p>
-
-                <a th:href="@{/user/cart/{id}(id=${product.id})}" class="add-to-cart-btn">
-                    <i class="fas fa-shopping-cart"></i> Thêm vào giỏ hàng
-                </a>
-
-                <div class="product-info">
-                    <h4><i class="fas fa-info-circle"></i> Thông tin sản phẩm</h4>
-                    <ul>
-                        <li><i class="fas fa-check"></i> Sản phẩm tươi sạch</li>
-                        <li><i class="fas fa-truck"></i> Giao hàng trong ngày</li>
-                        <li><i class="fas fa-exchange-alt"></i> Đổi trả trong 24h</li>
-                        <li><i class="fas fa-shield-alt"></i> Bảo đảm chất lượng</li>
-                    </ul>
-                </div>
+              >
             </div>
-        </div>
-    </div>
-</div>
+            <div class="specs-container">
+              <div class="spec-item">
+                <span class="spec-label">Màn hình:</span>
+                <span class="spec-value" th:text="${product.screen}">6.7"</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-label">RAM:</span>
+                <span class="spec-value" th:text="${product.ram}">8GB</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-label">Bộ nhớ:</span>
+                <span class="spec-value" th:text="${product.storage}"
+                  >128GB</span
+                >
+              </div>
+              <div class="spec-item">
+                <span class="spec-label">Pin:</span>
+                <span class="spec-value" th:text="${product.battery}"
+                  >5000mAh</span
+                >
+              </div>
+            </div>
 
-<!-- Thêm phần này sau product-container -->
-<div class="container mb-5">
-    <div class="comments-section">
+            <p class="product-description" th:text="${product.description}">
+              Mô tả sản phẩm...
+            </p>
+
+            <a
+              th:href="@{/user/cart/{id}(id=${product.id})}"
+              class="add-to-cart-btn"
+            >
+              <i class="fas fa-shopping-cart"></i> Thêm vào giỏ hàng
+            </a>
+
+            <div class="product-info">
+              <h4><i class="fas fa-info-circle"></i> Thông tin sản phẩm</h4>
+              <ul>
+                <li><i class="fas fa-check-circle"></i> Sản phẩm chính hãng</li>
+                <li><i class="fas fa-shield-alt"></i> Bảo hành 12 tháng</li>
+                <li>
+                  <i class="fas fa-exchange-alt"></i> Đổi trả trong 30 ngày
+                </li>
+                <li><i class="fas fa-truck"></i> Giao hàng toàn quốc</li>
+                <li><i class="fas fa-tools"></i> Hỗ trợ kỹ thuật 24/7</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Thêm phần này sau product-container -->
+    <div class="container mb-5">
+      <div class="comments-section">
         <h3 class="comments-title">
-            <i class="fas fa-comments"></i> Bình luận
+          <i class="fas fa-comments"></i> Bình luận
         </h3>
 
         <!-- Form thêm bình luận (chỉ hiện khi đã đăng nhập) -->
         <div class="comment-form" th:if="${user != null}">
-          <form th:action="@{/user/comment/{id}(id=${product.id})}" th:object="${newComment}" method="POST" onsubmit="return checkComment()">
-              <div class="form-group">
-                  <textarea
-                          id="comment"
-                          class="form-control"
-                          th:field="*{message}"
-                          rows="3"
-                          placeholder="Nhập bình luận của bạn..."
-                  ></textarea>
-              </div>
-              <button type="submit" class="btn btn-success">
-                  <i class="fas fa-paper-plane"></i> Gửi bình luận
-              </button>
+          <form
+            th:action="@{/user/comment/{id}(id=${product.id})}"
+            th:object="${newComment}"
+            method="POST"
+            onsubmit="return checkComment()"
+          >
+            <div class="form-group">
+              <textarea
+                id="comment"
+                class="form-control"
+                th:field="*{message}"
+                rows="3"
+                placeholder="Nhập bình luận của bạn..."
+              ></textarea>
+            </div>
+            <button type="submit" class="btn btn-info">
+              <i class="fas fa-paper-plane"></i> Gửi bình luận
+            </button>
           </form>
-      </div>
+        </div>
 
         <!-- Thông báo cần đăng nhập để bình luận -->
         <div class="login-notice" th:if="${user == null}">
-            <p class="text-center">
-                <a th:href="@{/login}" class="btn btn-outline-success">
-                    <i class="fas fa-sign-in-alt"></i> Đăng nhập để bình luận
-                </a>
-            </p>
+          <p class="text-center">
+            <a th:href="@{/login}" class="btn btn-outline-primary">
+              <i class="fas fa-sign-in-alt"></i> Đăng nhập để bình luận
+            </a>
+          </p>
         </div>
 
         <!-- Danh sách bình luận -->
         <div class="comments-list">
-            <div class="comment-item" th:each="item : ${comments}">
-                <div class="comment-header">
-                    <img
-                            th:src="@{${item.user.image}}"
-                            class="comment-avatar"
-                            alt="User Avatar"
-                    />
-                    <div class="comment-info">
-                        <h6 class="comment-username" th:text="${item.user.username}">
-                            Username
-                        </h6>
-                        <small class="comment-date" th:text="${item.createDate}"
-                        >Date</small
-                        >
-                    </div>
-                </div>
-                <div class="comment-content" th:text="${item.message}">
-                    Nội dung bình luận...
-                </div>
+          <div class="comment-item" th:each="item : ${comments}">
+            <div class="comment-header">
+              <img
+                th:src="@{${item.user.image}}"
+                class="comment-avatar"
+                alt="User Avatar"
+              />
+              <div class="comment-info">
+                <h6 class="comment-username" th:text="${item.user.username}">
+                  Username
+                </h6>
+                <small class="comment-date" th:text="${item.createDate}"
+                  >Date</small
+                >
+              </div>
             </div>
+            <div class="comment-content" th:text="${item.message}">
+              Nội dung bình luận...
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
 
-<!-- Scripts -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 
-<script>
-  function checkComment(){
-    var checkComment = document.getElementById("comment").value;
-    if (checkComment == null || checkComment.trim() === "") {
-      window.alert("Vui Lòng Nhập Bình Luận");
-      return false;  // Ngăn chặn việc gửi form
-    }
-    return true;  // Cho phép gửi form nếu có nội dung
-  }
-</script>
-</body>
+    <script>
+      function checkComment() {
+        var checkComment = document.getElementById("comment").value;
+        if (checkComment == null || checkComment.trim() === "") {
+          window.alert("Vui Lòng Nhập Bình Luận");
+          return false; // Ngăn chặn việc gửi form
+        }
+        return true; // Cho phép gửi form nếu có nội dung
+      }
+    </script>
+  </body>
 </html>

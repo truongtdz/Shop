@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public interface UserService {
     // View count User
-    Long getCount();
+    int getCount();
 
     // View ALL User
     List<User> getAllUser();

@@ -8,6 +8,9 @@ import com.example.shop.service.ItemService;
 import com.example.shop.service.OrderService;
 import com.example.shop.service.ProductService;
 import com.example.shop.service.UserService;
+
+import jakarta.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,11 +34,21 @@ public class AdminController {
     private ItemService itemService;
 
     @GetMapping
-    public ModelAndView admin(){
+    public ModelAndView admin(HttpSession session){
+        User user = (User) session.getAttribute("user");
+
+        if(user == null){
+            return new ModelAndView("/web/login")
+                        .addObject("userLogin", new User());
+        }
+        if(!user.getUsername().equals("admin")){
+            return new ModelAndView("redirect:/home");
+        } 
         return new ModelAndView("/admin/admin")
                 .addObject("countUser", userService.getCount())
                 .addObject("countProduct", productService.getCount())
-                .addObject("countOrder", orderService.getCount());
+                .addObject("countOrder", orderService.getCount())
+                .addObject("icrease", orderService.getIcrease());
     }
 
     @GetMapping("/user")

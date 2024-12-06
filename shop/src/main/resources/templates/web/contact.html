@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Liên Hệ - Shop Rau-Quả</title>
+    <title>Liên Hệ - Phone Shop</title>
     <link
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
       rel="stylesheet"
@@ -14,12 +14,12 @@
     />
     <style>
       body {
-        background-color: #e9f8e8;
+        background-color: #f8f9fa;
       }
 
       /* Header Styles */
       .header {
-        background: linear-gradient(135deg, #4caf50, #45a049);
+        background: linear-gradient(135deg, #2c3e50, #3498db);
         padding: 15px 0;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       }
@@ -56,7 +56,7 @@
       }
 
       .contact-title {
-        color: #4caf50;
+        color: #3498db;
         text-align: center;
         margin-bottom: 30px;
         font-weight: 700;
@@ -73,10 +73,18 @@
         display: flex;
         align-items: center;
         margin-bottom: 15px;
+        padding: 10px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+      }
+
+      .info-item:hover {
+        background: #e9ecef;
+        transform: translateX(5px);
       }
 
       .info-item i {
-        color: #4caf50;
+        color: #3498db;
         font-size: 20px;
         margin-right: 15px;
         width: 30px;
@@ -95,12 +103,12 @@
       }
 
       .form-control:focus {
-        border-color: #4caf50;
-        box-shadow: 0 0 0 0.2rem rgba(76, 175, 80, 0.25);
+        border-color: #3498db;
+        box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
       }
 
       .btn-submit {
-        background: linear-gradient(135deg, #4caf50, #45a049);
+        background: linear-gradient(135deg, #3498db, #2980b9);
         color: white;
         border: none;
         padding: 12px 30px;
@@ -112,7 +120,7 @@
 
       .btn-submit:hover {
         transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+        box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
       }
 
       /* Map Container */
@@ -141,7 +149,7 @@
         height: 40px;
         line-height: 40px;
         border-radius: 50%;
-        background: #4caf50;
+        background: #3498db;
         color: white;
         margin: 0 10px;
         transition: all 0.3s ease;
@@ -149,7 +157,39 @@
 
       .social-links a:hover {
         transform: translateY(-3px);
-        box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+        box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        background: #2980b9;
+      }
+
+      /* Service Section */
+      .services {
+        margin: 30px 0;
+        padding: 20px;
+        background: #f8f9fa;
+        border-radius: 10px;
+      }
+
+      .service-item {
+        text-align: center;
+        padding: 20px;
+        transition: all 0.3s ease;
+      }
+
+      .service-item i {
+        font-size: 40px;
+        color: #3498db;
+        margin-bottom: 15px;
+      }
+
+      .service-item h4 {
+        color: #2c3e50;
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
+
+      .service-item p {
+        color: #666;
+        font-size: 14px;
       }
 
       /* Animation */
@@ -178,8 +218,8 @@
             href="/home"
             class="d-flex align-items-center text-decoration-none"
           >
-            <img class="logo" th:src="@{/img/logo.jpg}" alt="Logo" />
-            <h1 class="header-title">Shop Rau-Quả</h1>
+            <img class="logo" th:src="@{/img/logoshop.jpg}" alt="Logo" />
+            <h1 class="header-title">Phone Shop</h1>
           </a>
         </div>
       </div>
@@ -189,8 +229,29 @@
     <div class="container">
       <div class="contact-container">
         <h2 class="contact-title">
-          <i class="fas fa-envelope-open-text mr-2"></i>Liên Hệ Với Chúng Tôi
+          <i class="fas fa-headset mr-2"></i>Liên Hệ Với Chúng Tôi
         </h2>
+
+        <!-- Services Section -->
+        <div class="services">
+          <div class="row">
+            <div class="col-md-4 service-item">
+              <i class="fas fa-tools"></i>
+              <h4>Sửa Chữa & Bảo Hành</h4>
+              <p>Dịch vụ sửa chữa chuyên nghiệp, bảo hành chính hãng</p>
+            </div>
+            <div class="col-md-4 service-item">
+              <i class="fas fa-exchange-alt"></i>
+              <h4>Thu Cũ Đổi Mới</h4>
+              <p>Chính sách thu cũ đổi mới hấp dẫn</p>
+            </div>
+            <div class="col-md-4 service-item">
+              <i class="fas fa-shipping-fast"></i>
+              <h4>Giao Hàng Nhanh</h4>
+              <p>Giao hàng toàn quốc trong 24h</p>
+            </div>
+          </div>
+        </div>
 
         <!-- Contact Info -->
         <div class="contact-info">
@@ -200,15 +261,19 @@
           </div>
           <div class="info-item">
             <i class="fas fa-phone-alt"></i>
-            <span>+84 123 456 789</span>
+            <span>Hotline: 1900 1234</span>
           </div>
           <div class="info-item">
             <i class="fas fa-envelope"></i>
-            <span>contact@shopquarau.com</span>
+            <span>support@phoneshop.com</span>
           </div>
           <div class="info-item">
             <i class="fas fa-clock"></i>
-            <span>Thứ 2 - Chủ nhật: 8:00 - 22:00</span>
+            <span>Thứ 2 - Chủ nhật: 8:00 - 21:30</span>
+          </div>
+          <div class="info-item">
+            <i class="fas fa-wrench"></i>
+            <span>Bảo hành: 1900 4321</span>
           </div>
         </div>
 
@@ -231,7 +296,8 @@
           <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
           <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
           <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
-          <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" title="Youtube"><i class="fab fa-youtube"></i></a>
+          <a href="#" title="TikTok"><i class="fab fa-tiktok"></i></a>
         </div>
       </div>
     </div>
