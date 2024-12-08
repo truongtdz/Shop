@@ -586,9 +586,11 @@
               class="form-inline mr-3"
               th:action="@{/home/search-name}"
               method="get"
+              onsubmit="return checkSearch()"
             >
               <div class="input-group">
                 <input
+                  id="search"
                   class="form-control"
                   type="search"
                   placeholder="Tìm kiếm sản phẩm..."
@@ -704,13 +706,19 @@
       >
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <img th:src="@{/img/banner01.png}" alt="Banner 1" />
+            <img th:src="@{/img/banner1.png}" alt="Banner 1" />
           </div>
           <div class="carousel-item">
-            <img th:src="@{/img/banner02.jpg}" alt="Banner 2" />
+            <img th:src="@{/img/banner2.jpg}" alt="Banner 2" />
           </div>
           <div class="carousel-item">
-            <img th:src="@{/img/banner03.png}" alt="Banner 3" />
+            <img th:src="@{/img/banner3.png}" alt="Banner 3" />
+          </div>
+          <div class="carousel-item">
+            <img th:src="@{/img/banner4.webp}" alt="Banner 4" />
+          </div>
+          <div class="carousel-item">
+            <img th:src="@{/img/banner5.webp}" alt="Banner 5" />
           </div>
         </div>
         <!-- Nút điều hướng mới -->
@@ -784,8 +792,9 @@
                   </div>
                   <p>
                     <span
+                      id="price"
                       class="product-price"
-                      th:text="${product.price} + ' $'"
+                      th:text="${product.price}"
                       >Price</span
                     >
                     <span
@@ -846,8 +855,9 @@
                   </div>
                   <p>
                     <span
+                      id="price"
                       class="product-price"
-                      th:text="${product.price} + ' $'"
+                      th:text="${product.price}"
                       >Price</span
                     >
                     <span
@@ -937,8 +947,9 @@
                   </div>
                   <p>
                     <span
+                      id="price"
                       class="product-price"
-                      th:text="${product.price} + ' $'"
+                      th:text="${product.price}"
                       >Price</span
                     >
                     <span
@@ -999,8 +1010,9 @@
                   </div>
                   <p>
                     <span
+                      id="price"
                       class="product-price"
-                      th:text="${product.price} + ' $'"
+                      th:text="${product.price}"
                       >Price</span
                     >
                     <span
@@ -1057,13 +1069,33 @@
     <!-- Footer -->
     <footer class="footer mt-5">
       <div class="container text-center">
-        <p>&copy; 2024 Shop Rau Củ Quả. All Rights Reserved.</p>
+        <p>&copy; 2024 Phone Shop. All Rights Reserved.</p>
         <a href="#">Chính sách bảo mật</a> | <a href="#">Điều khoản sử dụng</a>
       </div>
     </footer>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        const priceElements = document.querySelectorAll("#price");
+        priceElements.forEach(priceElement => {
+          const number = parseFloat(priceElement.textContent.replace(/[^0-9.-]+/g,"")); // Lấy giá trị số tiền
+          const formattedNumber = number.toLocaleString("vi-VN", { style: 'decimal', minimumFractionDigits: 0 }); // Định dạng theo chuẩn Việt Nam
+          priceElement.innerText = formattedNumber + ' VND'; // Cập nhật lại giá trị
+        });
+      });
+    </script>
+    <script>
+      function checkSearch() {
+        var checkSearch = document.getElementById("search").value;
+        if (checkSearch == null || checkSearch.trim() === "") {
+          window.alert("Vui Lòng Nhập Tìm Kiếm");
+          return false; // Ngăn chặn việc gửi form
+        }
+        return true; // Cho phép gửi form nếu có nội dung
+      }
+    </script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         // Lấy tất cả các link trong navigation

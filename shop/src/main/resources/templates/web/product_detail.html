@@ -301,7 +301,7 @@
               Tên Sản Phẩm
             </h1>
             <div class="d-flex align-items-center">
-              <span class="product-price" th:text="${product.price + ' $'}"
+              <span id="price" class="product-price" th:text="${product.price}"
                 >Giá</span
               >
               <i class="fas fa-tag"></i>
@@ -438,6 +438,16 @@
         }
         return true; // Cho phép gửi form nếu có nội dung
       }
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        const priceElements = document.querySelectorAll("#price");
+        priceElements.forEach(priceElement => {
+          const number = parseFloat(priceElement.textContent.replace(/[^0-9.-]+/g,"")); // Lấy giá trị số tiền
+          const formattedNumber = number.toLocaleString("vi-VN", { style: 'decimal', minimumFractionDigits: 0 }); // Định dạng theo chuẩn Việt Nam
+          priceElement.innerText = formattedNumber + ' VND'; // Cập nhật lại giá trị
+        });
+      });
     </script>
   </body>
 </html>

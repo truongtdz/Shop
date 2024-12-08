@@ -34,16 +34,7 @@ public class AdminController {
     private ItemService itemService;
 
     @GetMapping
-    public ModelAndView admin(HttpSession session){
-        User user = (User) session.getAttribute("user");
-
-        if(user == null){
-            return new ModelAndView("/web/login")
-                        .addObject("userLogin", new User());
-        }
-        if(!user.getUsername().equals("admin")){
-            return new ModelAndView("redirect:/home");
-        } 
+    public ModelAndView admin(){
         return new ModelAndView("/admin/admin")
                 .addObject("countUser", userService.getCount())
                 .addObject("countProduct", productService.getCount())

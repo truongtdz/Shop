@@ -320,7 +320,7 @@
                 </div>
               </div>
               <div class="col-md-2">
-                <p class="product-price" th:text="${cart.product.price + ' $'}">
+                <p id="price" class="product-price" th:text="${cart.product.price}">
                   Price
                 </p>
                 <span
@@ -352,8 +352,9 @@
               </div>
               <div class="col-md-1">
                 <p
+                  id="price"
                   class="product-price"
-                  th:text="${(cart.product.price * (100 - cart.product.discount) / 100) * cart.quantity + ' $'}"
+                  th:text="${(cart.product.price * (100 - cart.product.discount) / 100) * cart.quantity}"
                 >
                   Total
                 </p>
@@ -379,5 +380,15 @@
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        const priceElements = document.querySelectorAll("#price");
+        priceElements.forEach(priceElement => {
+          const number = parseFloat(priceElement.textContent.replace(/[^0-9.-]+/g,"")); // Lấy giá trị số tiền
+          const formattedNumber = number.toLocaleString("vi-VN", { style: 'decimal', minimumFractionDigits: 0 }); // Định dạng theo chuẩn Việt Nam
+          priceElement.innerText = formattedNumber + ' VND'; // Cập nhật lại giá trị
+        });
+      });
+    </script>
   </body>
 </html>

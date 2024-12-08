@@ -519,7 +519,7 @@
 
       .brand-row {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(4, 1fr);
         grid-template-rows: repeat(2, auto);
         gap: 8px;
         row-gap: 8px;
@@ -620,7 +620,7 @@
         >
           <div class="filter-row">
             <!-- Price Range -->
-            <div class="filter-group" style="width: 200px">
+            <div class="filter-group" style="width: 250px">
               <label class="filter-label">
                 <i class="fas fa-tag"></i>GIÁ
               </label>
@@ -630,7 +630,7 @@
                   class="form-control"
                   th:field="*{minPrice}"
                   placeholder="Từ"
-                  style="width: 80px"
+                  style="width: 47%"
                 />
                 <span class="price-separator">-</span>
                 <input
@@ -638,13 +638,10 @@
                   class="form-control"
                   th:field="*{maxPrice}"
                   placeholder="Đến"
-                  style="width: 80px"
+                  style="width: 47%"
                 />
               </div>
-            </div>
 
-            <!-- Sort -->
-            <div class="filter-group" style="width: 200px">
               <label class="filter-label">
                 <i class="fas fa-sort"></i>SẮP XẾP
               </label>
@@ -712,7 +709,7 @@
             <span class="feature-badge" th:text="${product.screen}">6.7"</span>
           </div>
           <div class="d-flex justify-content-center align-items-center">
-            <span class="product-price" th:text="${product.price + ' $'}"
+            <span id="price" class="product-price" th:text="${product.price}"
               >Price</span
             >
             <span
@@ -763,5 +760,20 @@
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const priceElements = document.querySelectorAll("#price");
+        priceElements.forEach((priceElement) => {
+          const number = parseFloat(
+            priceElement.textContent.replace(/[^0-9.-]+/g, "")
+          ); // Lấy giá trị số tiền
+          const formattedNumber = number.toLocaleString("vi-VN", {
+            style: "decimal",
+            minimumFractionDigits: 0,
+          }); // Định dạng theo chuẩn Việt Nam
+          priceElement.innerText = formattedNumber + " VND"; // Cập nhật lại giá trị
+        });
+      });
+    </script>
   </body>
 </html>

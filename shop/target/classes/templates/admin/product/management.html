@@ -227,8 +227,7 @@
                 </td>
                 <td th:text="${product.name}"></td>
                 <td class="price-column">
-                  <i class="fas fa-dollar-sign"></i>
-                  <span th:text="${product.price}"></span>
+                  <span id="price" th:text="${product.price}"></span>
                 </td>
                 <td>
                   <span class="discount-badge">
@@ -286,6 +285,16 @@
       function showImageModal(imgElement) {
         document.getElementById("modalImage").src = imgElement.src;
       }
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        const priceElements = document.querySelectorAll("#price");
+        priceElements.forEach(priceElement => {
+          const number = parseFloat(priceElement.textContent.replace(/[^0-9.-]+/g,"")); // Lấy giá trị số tiền
+          const formattedNumber = number.toLocaleString("vi-VN", { style: 'decimal', minimumFractionDigits: 0 }); // Định dạng theo chuẩn Việt Nam
+          priceElement.innerText = formattedNumber + ' VND'; // Cập nhật lại giá trị
+        });
+      });
     </script>
   </body>
 </html>

@@ -161,7 +161,7 @@
                             </td>
                             <td class="order">
                                 <i class="fa-solid fa-money-bill"></i>
-                                <span th:text="${order.total}"></span>
+                                <span id="price" th:text="${order.total}"></span>
                             </td>
                             <td class="order">
                                 <i class="fa-brands fa-codepen"></i>
@@ -183,6 +183,16 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  </body>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+          const priceElements = document.querySelectorAll("#price");
+          priceElements.forEach(priceElement => {
+            const number = parseFloat(priceElement.textContent.replace(/[^0-9.-]+/g,"")); // Lấy giá trị số tiền
+            const formattedNumber = number.toLocaleString("vi-VN", { style: 'decimal', minimumFractionDigits: 0 }); // Định dạng theo chuẩn Việt Nam
+            priceElement.innerText = formattedNumber + ' VND'; // Cập nhật lại giá trị
+          });
+        });
+      </script>
+</body>
 
 </html>

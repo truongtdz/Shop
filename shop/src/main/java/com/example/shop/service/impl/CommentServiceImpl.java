@@ -2,8 +2,6 @@ package com.example.shop.service.impl;
 
 import com.example.shop.entity.Comment;
 import com.example.shop.repository.CommentRepository;
-import com.example.shop.repository.ProductRepository;
-import com.example.shop.repository.UserRepository;
 import com.example.shop.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
